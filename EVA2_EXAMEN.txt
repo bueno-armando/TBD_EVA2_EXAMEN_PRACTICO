@@ -1,0 +1,1598 @@
+MySQL Shell 8.0.22
+
+Copyright (c) 2016, 2020, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Please provide the password for 'root@localhost': ****
+Save password for 'root@localhost'? [Y]es/[N]o/Ne[v]er (default No): No
+Fetching schema names for autocompletion... Press ^C to stop.
+Your MySQL connection id is 16
+Server version: 8.0.22 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create database hospital;
+Query OK, 1 row affected (0.0341 sec)
+ MySQL  localhost:3306 ssl  SQL > create table pacientes(paciente_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, fecha_nacimiento date not null, peso double(4,2) not null, altura double(4,2) not null, numero_seguro_social varchar(11) not null, genero enum("masculino", "femenino"), telefono_casa varchar(10), telefono_trabajo varchar(10), telefono_movil varchar(10), otros varchar(50));
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use database hospital;
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > \use database hospital;
+Incorrect number of arguments for use command, usage:
+\use <schema_name>
+ MySQL  localhost:3306 ssl  SQL > use hospital;
+Default schema set to `hospital`.
+Fetching table and column names from `hospital` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  hospital  SQL > create table pacientes(paciente_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, fecha_nacimiento date not null, peso double(4,2) not null, altura double(4,2) not null, numero_seguro_social varchar(11) not null, genero enum("masculino", "femenino"), telefono_casa varchar(10), telefono_trabajo varchar(10), telefono_movil varchar(10), otros varchar(50));
+Query OK, 0 rows affected, 2 warnings (0.1494 sec)
+Warning (code 1681): Specifying number of digits for floating point data types is deprecated and will be removed in a future release.
+Warning (code 1681): Specifying number of digits for floating point data types is deprecated and will be removed in a future release.
+ MySQL  localhost:3306 ssl  hospital  SQL > drop table pacientes;
+Query OK, 0 rows affected (0.0466 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table pacientes(paciente_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, fecha_nacimiento date not null, peso float(4,2) not null, altura float(4,2) not null, numero_seguro_social varchar(11) not null, genero enum("masculino", "femenino"), telefono_casa varchar(10), telefono_trabajo varchar(10), telefono_movil varchar(10), otros varchar(50));
+Query OK, 0 rows affected, 2 warnings (0.0299 sec)
+Warning (code 1681): Specifying number of digits for floating point data types is deprecated and will be removed in a future release.
+Warning (code 1681): Specifying number of digits for floating point data types is deprecated and will be removed in a future release.
+ MySQL  localhost:3306 ssl  hospital  SQL > drop table pacientes;
+Query OK, 0 rows affected (0.0213 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table pacientes(paciente_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, fecha_nacimiento date not null, peso decimal(4,2) not null, altura decimal(4,2) not null, numero_seguro_social varchar(11) not null, genero enum("masculino", "femenino"), telefono_casa varchar(10), telefono_trabajo varchar(10), telefono_movil varchar(10), otros varchar(50));           create table cuartos(cuarto_id int key auto_increment, paciente_id int, numero
+                                         -> create table cuartos(cuarto_id int key auto_increment, paciente_id int, numero
+                                         -> create table cuartos(cuarto_id int key auto_increment, paciente_id int, numer
+                                         -> ;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+ MySQL  localhost:3306 ssl  hospital  SQL > create table cuartos(cuarto_id int key auto_increment, paciente_id int, numero_cuarto int not null, inicio_estadia date not null, fin_estadia date, foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0599 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table direcciones(direccion_id int key auto_increment, calle varchar(50) not null, numero_exterior int not null, numero_interior int, colonia varchar(50) not null, codigo_postal varchar(50) not null, ciudad varchar(50) not null, estado varchar(50), pais varchar(50), otros varchar(50));
+Query OK, 0 rows affected (0.0282 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table direcciones_pacientes(direccion_paciente_id int key auto_increment, paciente_id int not null, direccion_id int not null, foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade, foreign key (direccion_id) references direcciones(direccion_id) on delete cascade on update cascade);
+Query OK, 0 rows affected (0.0619 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table empleados(empleados_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, titulo varchar(50), fecha_nacimiento date not null, otros varchar(50));
+Query OK, 0 rows affected (0.0297 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > drop table empleados;
+Query OK, 0 rows affected (0.0216 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table empleados(empleado_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, titulo varchar(50), fecha_nacimiento date not null, otros varchar(50));
+Query OK, 0 rows affected (0.0286 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > drop table empleados;
+Query OK, 0 rows affected (0.0220 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table empleados(empleados_id int key auto_increment, nombre varchar(50) not null, apellido_pat varchar(50) not null, apellido_mat varchar(50) not null, titulo varchar(50), fecha_nacimiento date not null, otros varchar(50));
+Query OK, 0 rows affected (0.0224 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table direcciones_empleados(direcciones_empleados_id int key auto_increment, empleado_id int not null, direccion_id int not null, foreign key (empleado_id) references empleados(empleados_id) on delete restrict on update cascade, foreign key (direccion_id) references direcciones(direccion_id) on delete cascade on update cascade);
+Query OK, 0 rows affected (0.0554 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table formas_pago(forma_pago_id int key auto_increment, forma_pago varchar(30) not null);
+Query OK, 0 rows affected (0.0403 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table formas_pago_pacientes(forma_pago_pac_id int key auto_increment, paciente_id int not null, forma_pago_id int not null, detalles varchar(50), foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade, foreign key (forma_pago_id) references formas_pago(forma_pago_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0596 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table cuentas_pacientes(cuentas_pacientes_id int key auto_increment, paciente_id int not null, forma_pago_pac_id int not null, fecha_emision date not null, otros varchar(50), foreign key(paciente_id) references pacientes(paciente_id) on delete restrict on update cascade, foreign key forma_pago_pac_id references formas_pago_pacientes(forma_pago_pac_id) on delete restrict on update cascade);
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references formas_pago_pacientes(forma_pago_pac_id) on delete restrict on update' at line 1
+ MySQL  localhost:3306 ssl  hospital  SQL > create table cuentas_pacientes(cuentas_pacientes_id int key auto_increment, paciente_id int not null, forma_pago_pac_id int not null, fecha_emision date not null, otros varchar(50), foreign key (paciente_id) references pacientes(paciente_id) on delete restrict on update cascade, foreign key (forma_pago_pac_id) references formas_pago_pacientes(forma_pago_pac_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0604 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table registro_pacientes(registro_paciente_id int key auto_increment, paciente_id int not null, cuentas_pacientes_id int not null, registro_por_empleado_id int not null, fecha_admision date not null, condicion_medica varchar(100) not null, otros varchar(50), foreign key (paciente_id) references pacientes (paciente_id) on delete restrict on update cascade, foreign key (cuentas_pacientes_id) references cuentas_pacientes(cuentas_pacientes_id) on delete restrict on update restrict, foreign key (registro_por_empleado_id) references empleados(empleado_id) on delete restrict on update cascade);
+ERROR: 3734 (HY000): Failed to add the foreign key constraint. Missing column 'empleado_id' for constraint 'registro_pacientes_ibfk_3' in the referenced table 'empleados'
+ MySQL  localhost:3306 ssl  hospital  SQL > create table registro_pacientes(registro_paciente_id int key auto_increment, paciente_id int not null, cuentas_pacientes_id int not null, registro_por_empleado_id int not null, fecha_admision date not null, condicion_medica varchar(100) not null, otros varchar(50), foreign key (paciente_id) references pacientes (paciente_id) on delete restrict on update cascade, foreign key (cuentas_pacientes_id) references cuentas_pacientes(cuentas_pacientes_id) on delete restrict on update restrict, foreign key (registro_por_empleado_id) references empleados(empleados_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0499 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > create table cuentas_pacientes_detalles(cuentas_pacientes_det_id int key auto_increment, cuentas_pacientes_id int not null, detalle varchar(50) default "Diagnostico", cantidad decimal(10,2) not null, costo_total decimal(12,2) not null, foreign key (cuentas_pacientes_id) references cuentas_pacientes(cuentas_pacientes_id) on delete restrict on update cascade);
+Query OK, 0 rows affected (0.0510 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO pacientes (nombre, apellido_pat, apellido_mat, fecha_nacimiento, peso, altura, numero_seguro_social, genero) VALUES ('Georgi', 'Facello', 'Facello', '1960-02-20', 93.00, 1.99, '10001', 'masculino'), ('Bezalel', 'Simmel', 'Simmel', '1952-07-08', 88.00, 1.69, '10002', 'femenino'), ('Parto', 'Bamford', 'Bamford', '1953-09-29', 62.00, 1.88, '10003', 'masculino'), ('Chirstian', 'Koblick', 'Koblick', '1958-09-05', 93.00, 1.84, '10004', 'masculino'), ('Kyoichi', 'Maliniak', 'Maliniak', '1958-10-31', 86.00, 1.89, '10005', 'masculino'), ('Anneke', 'Preusig', 'Preusig', '1953-04-03', 86.00, 1.54, '10006', 'femenino'), ('Tzvetan', 'Zielinski', 'Zielinski', '1962-07-10', 56.00, 1.77, '10007', 'femenino'), ('Saniya', 'Kalloufi', 'Kalloufi', '1963-11-26', 78.00, 1.82, '10008', 'femenino'), ('Sumant', 'Peac', 'Peac', '1956-12-13', 85.00, 1.64, '10009', 'masculino'), ('Duangkaew', 'Piveteau', 'Piveteau', '1958-07-14', 92.00, 1.71, '10010', 'masculino'), ('Mary', 'Sluis', 'Sluis', '1959-01-27', 96.00, 1.96, '10011', 'femenino'), ('Patricio', 'Bridgland', 'Bridgland', '1960-08-09', 63.00, 1.90, '10012', 'masculino'), ('Eberhardt','Terkki','Terkki','1956-11-14' ,81.00 ,1.64 ,'10013' ,'masculino'), ('Berni','Genin','Genin','1962-12-29' ,67.00 ,1.74 ,'10014' ,'masculino'), ('Guoxiang','Nooteboom','Nooteboom','1953-02-08' ,60.00 ,1.55 ,'10015' ,'masculino'), ('Kazuhito','Cappelletti','Cappelletti','1959-08-10' ,97.00 ,1.71 ,'10016' ,'masculino'), ('Cristinel','Bouloucos','Bouloucos','1963-07-22' ,66.00 ,1.91 ,'10017' ,'masculino'), ('Kazuhide','Peha','Peha','1960-07-20' ,88.00 ,1.51 ,'10018' ,'masculino'), ('Lillian','Haddadi','Haddadi','1959-10-01' ,85.00 ,1.61 ,'10019' ,'femenino'), ('Mayuko','Warwick','Warwick','1959-09-13' ,96.00 ,1.78 ,'10020' ,'femenino'), ('Ramzi','Erde','Erde','1959-08-27' ,91.00 ,1.61 ,'10021' ,'masculino'), ('Shahaf','Famili','Famili','1956-02-26' ,70.00 ,1.81 ,'10022' ,'masculino'), ('Bojan','Montemayor','Montemayor','1960-09-19' ,86.00 ,1.80 ,'10023' ,'masculino'), ('Suzette','Pettey','Pettey','1961-09-21' ,79.00 ,1.74 ,'10024' ,'femenino'), ('Prasadram','Heyers','Heyers','1957-08-14' ,91.00 ,1.95 ,'10025' ,'masculino'), ('Yongqiao','Berztiss','Berztiss','1960-07-23' ,75.00 ,1.91 ,'10026' ,'masculino'), ('Divier','Reistad','Reistad','1952-06-29' ,57.00 ,1.60 ,'10027' ,'masculino'), ('Domenick','Tempesti','Tempesti','1963-07-11' ,62.00 ,1.72 ,'10028' ,'masculino'), ('Otmar','Herbst','Herbst','1961-04-24' ,77.00 ,1.60 ,'10029' ,'masculino'), ('Elvis','Demeyer','Demeyer','1958-05-21' ,93.00 ,1.64 ,'10030' ,'masculino'), ('Karsten','Joslin','Joslin','1953-07-28' ,95.00 ,1.52 ,'10031' ,'masculino'), ('Jeong ','Reistad ','Reistad ','1961-02-26',84.00,1.60,'10032','masculino'), ('Arif', 'Merlo', 'Merlo', '1954-09-13', 92.00, 1.77, '10033', 'masculino'),
+                                         -> ('Bader', 'Swan', 'Swan', '1957-04-04', 69.00, 1.56, '10034', 'masculino'),
+                                         -> ('Alain', 'Chappelet', 'Chappelet', '1956-06-06', 57.00, 1.55, '10035', 'masculino'),
+                                         -> ('Adamantios', 'Portugali', 'Portugali', '1961-09-01', 62.00, 1.99, '10036', 'masculino'),
+                                         -> ('Pradeep', 'Makrucki', 'Makrucki', '1954-05-30', 60.00, 1.75, '10037', 'masculino'),
+                                         -> ('Huan', 'Lortz', 'Lortz', '1954-10-01', 97.00, 1.88, '10038', 'masculino'),
+                                         -> ('Alejandro', 'Brender', 'Brender', '1959-10-01', 92.00, 1.78, '10039', 'masculino'),
+                                         -> ('Weiyi', 'Meriste', 'Meriste', '1959-09-13', 97.00, 1.84, '10040', 'masculino'),
+                                         -> ('Uri', 'Lenart', 'Lenart', '1959-08-27', 80.00, 1.90, '10041', 'masculino'),
+                                         -> ('Magy', 'Stamatiou', 'Stamatiou', '1956-02-26', 69.00, 1.91, '10042', 'femenino'),
+                                         -> ('Yishay', 'Tzvieli', 'Tzvieli', '1960-09-19', 65.00, 1.95, '10043', 'masculino'),
+                                         -> ('Mingsen','Casley','Casley','1961-09-21',90.00 ,1.80 ,'10044','masculino'),
+                                         -> ('Moss','Shanbhogue','Shanbhogue','1957-08-14 ',90.00 ,1.97 ,'10045','masculino'),
+                                         -> ('Lucien','Rosenbaum','Rosenbaum','1960-07-23 ',85.00 ,1.53 ,'10046','masculino'),
+                                         -> ('Zvonko','Nyanchama','Nyanchama','1952-06-29 ',78.00 ,1.65 ,'10047','masculino'),
+                                         -> ('Florian','Syrotiuk','Syrotiuk','1963-07-11 ',76.00 ,1.58 ,'10048','masculino'),
+                                         -> ('Basil','Tramer','Tramer','1961-04-24 ',99.00 ,1.55 ,'10049','masculino'),
+                                         -> ('Yinghua','Dredge','Dredge','1958-05-21 ',78.00 ,1.54 ,'10050','femenino'),
+                                         -> ('Hidefumi','Caine','Caine','1953-07-28 ',54.00 ,1.84 ,'10051','masculino'),
+                                         -> ('Heping','Nitsch','Nitsch','1961-02-26 ',85.00 ,1.59 ,'10052','masculino'),
+                                         -> ('Sanjiv','Zschoche','Zschoche','1954-09-13 ',52.00 ,1.53 ,'10053','masculino'),
+                                         -> ('Mayumi','Schueller','Schueller','1957-04-04 ',75.00 ,1.72 ,'10054','femenino'),
+                                         -> ('Georgy','Dredge','Dredge','1956-06-06 ',97.00 ,1.61 ,'10055','masculino'),
+                                         -> ('Brendon','Bernini','Bernini','1961-09-01 ',91.00 ,1.63 ,'10056','masculino'),
+                                         -> ('Ebbe','Callaway','Callaway','1954-05-30 ',91.00 ,1.96 ,'10057','masculino'),
+                                         -> ('Berhard','McFarlin','McFarlin','1954-10-01 ',99.00 ,1.96 ,'10058 ','masculino');
+Query OK, 58 rows affected (0.0220 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones (calle, numero_exterior, numero_interior, colonia, codigo_postal, ciudad, estado, pais)
+                                         -> VALUES
+                                         -> ('1 rue Alsace-Lorraine', 1, NULL, 'No especifica', '40620', 'Toulouse', 'No especifica', 'France'),
+                                         -> ('12 Orchestra Terrace', 12, NULL, 'No especifica', '72299', 'Walla Walla', 'WA', 'USA'),
+                                         -> ('12, rue des Bouchers', 12, NULL, 'No especifica', '10368', 'Marseille', 'No especifica', 'France'),
+                                         -> ('120 Hanover Sq.', 120, NULL, 'No especifica', '60155', 'London', 'No especifica', 'UK'),
+                                         -> ('184, chaussee de Tournai', 184, NULL, 'No especifica', '55769', 'Lille', 'No especifica', 'France'),
+                                         -> ('187 Suffolk Ln.', 187, NULL, 'No especifica', '78271', 'Boise', 'ID', 'USA'),
+                                         -> ('1900 Oak St.', 1900, NULL, 'No especifica', '85240', 'Vancouver', 'BC', 'Canada'),
+                                         -> ('2, rue du Commerce', 2, NULL, 'No especifica', '46913', 'Helsinki', 'No especifica', NULL),
+                                         -> ('23 Tsawassen Blvd.', 23, NULL, 'No especifica', '31994', 'Tsawassen', 'BC', 'Canada'),
+                                         -> ('24, place Kleber', 24, NULL, 'No especifica', '72584', 'Strasbourg', 'No especifica', 'France'),
+                                         -> ('25, rue Lauriston', 25, NULL, 'No especifica', '43635', 'Paris', 'No especifica', 'France'),
+                                         -> ('265, boulevard Charonne', 265, NULL, 'No especifica', '26346', 'Paris', 'No especifica', 'France'),
+                                         -> ('2732 Baker Blvd.', 2732, NULL, 'No especifica', '87535', 'Eugene', 'OR', 'USA'),
+                                         -> ('2743 Bering St.', 2743, NULL, 'No especifica', '79901', 'Anchorage', 'AK', 'USA'),
+                                         -> ('2817 Milton Dr.', 2817, NULL, 'No especifica', '85182', 'Albuquerque', 'NM', 'USA'),
+                                         -> ('305 - 14th Ave. S. Suite 3B', 305, 3, 'No especifica', '62245', 'Oulu', 'No especifica', 'Finland'),
+                                         -> ('35 King George', 35, NULL, 'No especifica', '13216', 'London', 'No especifica', 'UK'),
+                                         -> ('43 rue St. Laurent', 43, NULL, 'No especifica', '18465', 'Montréal', 'Québec', 'Canada'),
+                                         -> ('5 Ave. Los Palos Grandes', 5, NULL, 'No especifica', '68441', 'Caracas', 'DF', 'Venezuela'),
+                                         -> ('54, rue Royale', 54, NULL, 'No especifica', '63117', 'Nantes', 'No especifica', 'France');
+Query OK, 20 rows affected (0.0139 sec)
+
+Records: 20  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones (calle, numero_exterior, numero_interior, colonia, codigo_postal, ciudad, estado, pais)
+                                         -> VALUES
+                                         -> ('55 Grizzly Peak Rd.', 55, NULL, 'No especifica', '39549', 'Butte', 'MT', 'USA'),
+                                         -> ('59 rue de l\'Abbaye', 59, NULL, 'No especifica', '21955', 'Warszawa', 'No especifica', NULL),
+                                         -> ('67, avenue de l\'Europe', 67, NULL, 'No especifica', '42768', 'Versailles', 'No especifica', 'France'),
+                                         -> ('67, rue des Cinquante Otages', 67, NULL, 'No especifica', '56274', 'Nantes', 'No especifica', 'France'),
+                                         -> ('722 DaVinci Blvd.', 722, NULL, 'No especifica', '13113', 'Kirkland', 'WA', 'USA'),
+                                         -> ('8 Johnstown Road', 8, NULL, 'No especifica', '47847', 'Cork', 'Co. Cork', 'Ireland'),
+                                         -> ('87 Polk St. Suite 5', 87, NULL, 'No especifica', '11981', 'San Francisco', 'CA', 'USA'),
+                                         -> ('89 Chiaroscuro Rd.', 89, NULL, 'No especifica', '29410', 'Portland', 'OR', 'USA'),
+                                         -> ('89 Jefferson Way Suite 2', 89, NULL, 'No especifica', '44919', 'Portland', 'OR', 'USA'),
+                                         -> ('90 Wadhurst Rd.', 90, NULL, 'No especifica', '43827', 'London', 'No especifica', 'UK'),
+                                         -> ('Adenauerallee 900', 900, NULL, 'No especifica', '86925', 'Lyon', 'No especifica', 'France'),
+                                         -> ('Alameda dos Canários, 891', 891, NULL, 'No especifica', '36965', 'São Paulo', 'SP', 'Brazil'),
+                                         -> ('Av. Brasil, 442', 442, NULL, 'No especifica', '68328', 'Campinas', 'SP', 'Brazil'),
+                                         -> ('Av. Copacabana, 267', 267, NULL, 'No especifica', '34941', 'Rio de Janeiro', 'RJ', 'Brazil'),
+                                         -> ('Av. del Libertador 900', 900, NULL, 'No especifica', '71252', 'Buenos Aires', 'No especifica', 'Argentina'),
+                                         -> ('Av. dos Lusíadas, 23', 23, NULL, 'No especifica', '84473', 'São Paulo', 'SP', 'Brazil'),
+                                         -> ('Av. Inês de Castro, 414', 414, NULL, 'No especifica', '14942', 'São Paulo', 'SP', 'Brazil'),
+                                         -> ('Avda. Azteca 123', 123, NULL, 'No especifica', '78040', 'México D.F.', 'México D.F.', 'Mexico'),
+                                         -> ('Avda. de la Constitución 2222', 2222, NULL, 'No especifica', '71760', 'México D.F.', 'México D.F.', 'Mexico'),
+                                         -> ('Ave. 5 de Mayo Porlamar', 5, NULL, 'No especifica', '20768', 'I. de Margarita', 'Nueva Esparta', 'Venezuela');
+Query OK, 20 rows affected (0.0055 sec)
+
+Records: 20  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones (calle, numero_exterior, numero_interior, colonia, codigo_postal, ciudad, estado, pais)
+                                         -> VALUES
+                                         -> ('Berguvsvägen 8', 8, NULL, 'No especifica', '26468', 'Luleå', 'No especifica', 'Sweden'),
+                                         -> ('Berkeley Gardens 12 Brewery', 12, NULL, 'No especifica', '61775', 'London', 'No especifica', 'UK'),
+                                         -> ('Berliner Platz 43', 43, NULL, 'No especifica', '21914', 'München', 'No especifica', 'Germany'),
+                                         -> ('Boulevard Tirou, 255', 255, NULL, 'No especifica', '86215', 'Charleroi', 'No especifica', 'Belgium'),
+                                         -> ('C/ Araquil, 67', 67, NULL, 'No especifica', '11697', 'Madrid', 'No especifica', 'Spain'),
+                                         -> ('C/ Moralzarzal, 86', 86, NULL, 'No especifica', '77528', 'Madrid', 'No especifica', 'Spain'),
+                                         -> ('C/ Romero, 33', 33, NULL, 'No especifica', '18057', 'Sevilla', 'No especifica', 'Spain'),
+                                         -> ('Calle Dr. Jorge Cash 321', 321, NULL, 'No especifica', '19460', 'México D.F.', 'México D.F.', 'Mexico'),
+                                         -> ('Carrera 22 con Ave. Carlos Soublette #8-35', 22, 8, 'No especifica', '50156', 'San Cristóbal', 'Táchira', 'Venezuela'),
+                                         -> ('Carrera 52 con Ave. Bolívar #65-98 Llano Largo', 52, NULL, 'No especifica', '76914', 'Barquisimeto', 'Lara', 'Venezuela'),
+                                         -> ('Cerrito 333', 333, NULL, 'No especifica', '41756', 'Buenos Aires', 'No especifica', 'Argentina'),
+                                         -> ('City Center Plaza 516 Main St.', 516, NULL, 'No especifica', '47913', 'Elgin', 'OR', 'USA'),
+                                         -> ('Erling Skakkes gate 78', 78, NULL, 'No especifica', '68136', 'Stavern', 'No especifica', 'Norway'),
+                                         -> ('Estrada da Saúde n. 58', 58, NULL, 'No especifica', '11380', 'Lisboa', 'No especifica', 'Portugal'),
+                                         -> ('Fauntleroy Circus', 100, NULL, 'No especifica', '12425', 'London', 'No especifica', 'UK'),
+                                         -> ('Forsterstr. 57', 57, NULL, 'No especifica', '29719', 'Mannheim', 'No especifica', 'Germany'),
+                                         -> ('Garden House Crowther Way', 5, NULL, 'No especifica', '52697', 'Cowes', 'Isle of Wight', 'UK'),
+                                         -> ('Geislweg 14', 14, NULL, 'No especifica', '34435', 'Salzburg', 'No especifica', 'Austria'),
+                                         -> ('Gran Vía, 1', 1, NULL, 'No especifica', '61601', 'Madrid', 'No especifica', 'Spain'),
+                                         -> ('Grenzacherweg 237', 237, NULL, 'No especifica', '83335', 'Genève', 'No especifica', 'Switzerland');
+Query OK, 20 rows affected (0.0054 sec)
+
+Records: 20  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones (calle, numero_exterior, numero_interior, colonia, codigo_postal, ciudad, estado, pais)
+                                         -> VALUES
+                                         -> ('Hauptstr. 29', 29, NULL, 'No especifica', '23662', 'Bern', 'No especifica', 'Switzerland'),
+                                         -> ('Heerstr. 22', 22, NULL, 'No especifica', '73900', 'Leipzig', 'No especifica', 'Germany'),
+                                         -> ('Ing. Gustavo Moncada 8585 Piso 20-A', 8585, 20, 'No especifica', '83428', 'Buenos Aires', 'No especifica', 'Argentina'),
+                                         -> ('Jardim das Rosas n. 32', 32, NULL, 'No especifica', '87099', 'Lisboa', 'No especifica', 'Portugal'),
+                                         -> ('Åkergatan 24', 24, NULL, 'No especifica', '83154', 'Brücke', 'No especifica', 'Sweden'),
+                                         -> ('Keskuskatu 45', 45, NULL, 'No especifica', '25873', 'Resende', 'SP', 'Brazil'),
+                                         -> ('Kirchgasse 6', 6, NULL, 'No especifica', '59319', 'Graz', 'No especifica', 'Austria'),
+                                         -> ('Luisenstr. 48', 48, NULL, 'No especifica', '32205', 'Münster', 'No especifica', 'Germany'),
+                                         -> ('Magazinweg 7', 7, NULL, 'No especifica', '69129', 'Frankfurt a.M.', 'No especifica', 'Germany'),
+                                         -> ('Mataderos 2312', 2312, NULL, 'No especifica', '37179', 'México D.F.', 'México D.F.', 'Mexico'),
+                                         -> ('Maubelstr. 90', 90, NULL, 'No especifica', '73705', 'Brandenburg', 'No especifica', 'Germany'),
+                                         -> ('Mehrheimerstr. 369', 369, NULL, 'No especifica', '46012', 'Köln', 'No especifica', 'Germany'),
+                                         -> ('Obere Str. 57', 57, NULL, 'No especifica', '30071', 'Berlin', 'No especifica', 'Germany'),
+                                         -> ('P.O. Box 555', 555, NULL, 'No especifica', '26230', 'Lander', 'WY', 'USA'),
+                                         -> ('Rambla de Cataluña, 23', 23, NULL, 'No especifica', '38184', 'Barcelona', 'No especifica', 'Spain'),
+                                         -> ('Rua da Panificadora, 12', 12, NULL, 'No especifica', '37964', 'Rio de Janeiro', 'RJ', 'Brazil'),
+                                         -> ('Rua do Mercado, 12', 12, NULL, 'No especifica', '10549', 'Stuttgart', 'No especifica', 'Germany'),
+                                         -> ('Rua do Pão, 67', 67, NULL, 'No especifica', '22071', 'Rio de Janeiro', 'RJ', 'Brazil'),
+                                         -> ('Rua Orós, 92', 92, NULL, 'No especifica', '16799', 'São Paulo', 'SP', 'Brazil');
+Query OK, 19 rows affected (0.0034 sec)
+
+Records: 19  Duplicates: 0  Warnings: 0
+MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones (calle, numero_exterior, numero_interior, colonia, codigo_postal, ciudad, estado, pais)
+VALUES
+('Rue Joseph-Bens 532', 532, NULL, 'No especifica', '32742', 'Bruxelles', 'No especifica', 'Belgium'),
+('Sierras de Granada 9993', 9993, NULL, 'No especifica', '45792', 'Mxico D.F.', 'No especifica', 'Mexico'),
+('Smagsloget 45', 45, NULL, 'No especifica', '88442', 'rhus', 'No especifica', 'Denmark'),
+('South House 300 Queensbridge', 300, NULL, 'No especifica', '77552', 'London', 'No especifica', 'UK'),
+('Strada Provinciale 124', 124, NULL, 'No especifica', '47511', 'Reggio Emilia', 'No especifica', 'Italy'),
+('Taucherstrae 10', 10, NULL, 'No especifica', '86041', 'Cunewalde', 'No especifica', 'Germany'),
+('Torikatu 38', 38, NULL, 'No especifica', '18047', 'Reims', 'No especifica', 'France'),
+('ul. Filtrowa 6+B7:B928', 68, NULL, 'No especifica', '33192', 'Seattle', 'WA', 'USA'),
+('Via Ludovico il Moro 22', 22, NULL, 'No especifica', '82459', 'Bergamo', 'No especifica', 'Italy'),
+('Via Monte Bianco 34', 34, NULL, 'No especifica', '87116', 'Torino', 'No especifica', 'Italy'),
+('Vinbltet 34', 34, NULL, 'No especifica', '59536', 'Kobenhavn', 'No especifica', 'Denmark'),
+('Walserweg 21', 21, NULL, 'No especifica', '20796', 'Aachen', 'No especifica', 'Germany');
+Query OK, 12 rows affected (0.0034 sec)
+
+Records: 12  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO empleados (nombre, apellido_pat, apellido_mat, titulo, fecha_nacimiento, otros)
+                                         -> VALUES
+                                         -> ('Alejandro', 'McAlpine', 'McAlpine', 'Senior Engineer', '1953-09-19', 'Geislweg 14'),
+                                         -> ('Breannda', 'Billingsley', 'Billingsley', 'Staff', '1961-10-15', 'Estrada da sade n. 58'),
+                                         -> ('Tse', 'Herber', 'Herber', 'Senior Engineer', '1962-10-19', 'Rua da Panificadora, 12'),
+                                         -> ('Anoosh', 'Peyn', 'Peyn', 'Engineer', '1961-11-02', 'Alameda dos Canrios, 891'),
+                                         -> ('Gino', 'Leonhardt', 'Leonhardt', 'Senior Engineer', '1952-08-06', 'Taucherstrae 10'),
+                                         -> ('Udi', 'Jansch', 'Jansch', 'Senior Staff', '1959-04-07', 'Av. del Libertador 900'),
+                                         -> ('Satosi', 'Awdeh', 'Awdeh', 'Staff', '1963-04-14', '2817 Milton Dr.'),
+                                         -> ('Kwee', 'Schusler', 'Schusler', 'Senior Engineer', '1952-11-13', 'Strada Provinciale 124'),
+                                         -> ('Claudi', 'Stavenow', 'Stavenow', 'Senior Staff', '1953-01-07', 'Av. Copacabana, 267'),
+                                         -> ('Charlene', 'Brattka', 'Brattka', 'Staff', '1962-11-26', 'Grenzacherweg 237'),
+                                         -> ('Margareta', 'Bierman', 'Bierman', 'Assistant Engineer', '1960-09-06', 'Gran Va, 1'),
+                                         -> ('Reuven', 'Garigliano', 'Garigliano', 'Assistant Engineer', '1955-08-20', 'Erling Skakkes gate 78'),
+                                         -> ('Hisao', 'Lipner', 'Lipner', 'Engineer', '1958-01-21', '187 Suffolk Ln.'),
+                                         -> ('Hironoby', 'Sidou', 'Sidou', 'Senior Engineer', '1952-05-15', '90 Wadhurst Rd.'),
+                                         -> ('Shir', 'McClurg', 'McClurg', 'Engineer', '1954-02-23', 'Vinbltet 34'),
+                                         -> ('Mokhtar', 'Bernatsky', 'Bernatsky', 'Staff', '1955-08-28', '25, rue Lauriston'),
+                                         -> ('Gao', 'Dolinsky', 'Dolinsky', 'Engineer', '1960-03-09', 'P.O. Box 555'),
+                                         -> ('Erez', 'Ritzmann', 'Ritzmann', 'Senior Engineer', '1952-06-13', 'Boulevard Tirou, 255'),
+                                         -> ('Mona', 'Azuma', 'Azuma', 'Senior Staff', '1964-04-18', '89 Jefferson Way Suite 2'),
+                                         -> ('Danel', 'Mondadori', 'Mondadori', 'Engineer', '1959-12-25', '55 Grizzly Peak Rd.'),
+                                         -> ('Kshitij', 'Gils', 'Gils', 'Senior Staff', '1961-10-05', 'Luisenstr. 48');
+Query OK, 21 rows affected (0.0132 sec)
+
+Records: 21  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO empleados (nombre, apellido_pat, apellido_mat, titulo, fecha_nacimiento, otros)
+                                         -> VALUES
+                                         -> ('Premal', 'Baek', 'Baek', 'Staff', '1957-12-03', 'Avda. Azteca 123'),
+                                         -> ('Zhongwei', 'Rosen', 'Rosen', 'Senior Staff', '1960-12-17', 'Av. Ins de Castro, 414'),
+                                         -> ('Parviz', 'Lortz', 'Lortz', 'Staff', '1963-09-09', '722 DaVinci Blvd.'),
+                                         -> ('Vishv', 'Zockler', 'Zockler', 'Engineer', '1959-07-23', 'Smagsloget 45'),
+                                         -> ('Tuval', 'Kalloufi', 'Kalloufi', 'Senior Engineer', '1960-05-25', '2, rue du Commerce'),
+                                         -> ('Kenroku', 'Malabarba', 'Malabarba', 'Staff', '1962-11-07', '59 rue de l\'Abbaye'),
+                                         -> ('Somnath', 'Foote', 'Foote', 'Engineer', '1962-11-19', 'Adenauerallee 900'),
+                                         -> ('Xinglin', 'Eugenio', 'Eugenio', 'Technique Leader', '1959-07-23', 'Torikatu 38'),
+                                         -> ('Jungsoon', 'Syrzycki', 'Syrzycki', 'Engineer', '1954-02-25', 'Rua do Mercado, 12');
+Query OK, 9 rows affected (0.0050 sec)
+
+Records: 9  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > update empleados set otros = null;
+Query OK, 30 rows affected (0.0097 sec)
+
+Rows matched: 30  Changed: 30  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO cuartos (paciente_id, numero_cuarto, inicio_estadia, fin_estadia)
+                                         -> VALUES
+                                         ->     (1, 121, '2017-04-10', '2017-04-17'),
+                                         ->     (2, 190, '2017-04-11', '2017-04-13'),
+                                         ->     (3, 108, '2017-04-12', '2017-04-17'),
+                                         ->     (4, 179, '2017-04-13', '2017-04-18'),
+                                         ->     (5, 158, '2017-04-14', '2017-04-17'),
+                                         ->     (6, 183, '2017-04-15', '2017-04-16'),
+                                         ->     (7, 142, '2017-04-16', '2017-04-23'),
+                                         ->     (8, 108, '2017-04-17', '2017-04-24'),
+                                         ->     (9, 100, '2017-04-18', '2017-04-23'),
+                                         ->     (10, 109, '2017-04-19', '2017-04-24'),
+                                         ->     (11, 116, '2017-04-20', '2017-04-23'),
+                                         ->     (12, 182, '2017-04-21', '2017-04-24'),
+                                         ->     (13, 180, '2017-04-22', '2017-04-28'),
+                                         ->     (14, 188, '2017-04-23', '2017-04-25'),
+                                         ->     (15, 173, '2017-04-24', '2017-05-01'),
+                                         ->     (16, 176, '2017-04-25', '2017-04-30'),
+                                         ->     (17, 122, '2017-04-26', '2017-04-27'),
+                                         ->     (18, 155, '2017-04-27', '2017-05-07'),
+                                         ->     (19, 181, '2017-04-28', '2017-04-30'),
+                                         ->     (20, 178, '2017-04-29', '2017-05-05'),
+                                         ->     (21, 139, '2017-04-30', '2017-05-07'),
+                                         ->     (22, 119, '2017-05-01', '2017-05-10'),
+                                         ->     (23, 193, '2017-05-02', '2017-05-09'),
+                                         ->     (24, 153, '2017-05-03', '2017-05-04'),
+                                         ->     (25, 168, '2017-05-04', '2017-05-14'),
+                                         ->     (26, 115, '2017-05-05', '2017-05-12'),
+                                         ->     (27, 140, '2017-05-06', '2017-05-09'),
+                                         ->     (28, 170, '2017-05-07', '2017-05-14'),
+                                         ->     (29, 153, '2017-05-08', '2017-05-10'),
+                                         ->     (30, 177, '2017-05-09', '2017-05-14'),
+                                         ->     (31, 101, '2017-05-10', '2017-05-17'),
+                                         ->     (32, 118, '2017-05-11', '2017-05-21'),
+                                         ->     (33, 120, '2017-05-12', '2017-05-19'),
+                                         ->     (34, 156, '2017-05-13', '2017-05-19'),
+                                         ->     (35, 174, '2017-05-14', '2017-05-15'),
+                                         ->     (36, 156, '2017-05-15', '2017-05-19'),
+                                         ->     (37, 397, '2017-05-16', '2017-05-26'),
+                                         ->     (38, 314, '2017-05-17', '2017-05-18'),
+                                         ->     (39, 385, '2017-05-18', '2017-05-24'),
+                                         ->     (40, 356, '2017-05-19', '2017-05-26'),
+                                         ->     (41, 317, '2017-05-20', '2017-05-28'),
+                                         ->     (42, 305, '2017-05-21', '2017-05-29'),
+                                         ->     (43, 363, '2017-05-22', '2017-05-26'),
+                                         ->     (44, 346, '2017-05-23', '2017-06-02'),
+                                         ->     (45, 396, '2017-05-24', '2017-05-31'),
+                                         ->     (46, 376, '2017-05-25', '2017-06-03'),
+                                         ->     (47, 353, '2017-05-26', '2017-05-27'),
+                                         ->     (48, 342, '2017-05-27', '2017-06-06'),
+                                         ->     (49, 382, '2017-05-28', '2017-05-29'),
+                                         ->     (50, 346, '2017-05-29', '2017-05-30'),
+                                         ->     (51, 349, '2017-05-30', '2017-06-02'),
+                                         ->     (52, 381, '2017-05-31', '2017-06-08'),
+                                         ->     (53, 383, '2017-06-01', '2017-06-11'),
+                                         ->     (54, 339, '2017-06-02', '2017-06-07'),
+                                         ->     (55, 326, '2017-06-03', '2017-06-09'),
+                                         ->     (56, 391, '2017-06-04', '2017-06-12'),
+                                         ->     (57, 377, '2017-06-05', '2017-06-13'),
+                                         ->     (58, 323, '2017-06-06', '2017-06-13');
+Query OK, 58 rows affected (0.0131 sec)
+
+Records: 58  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > insert into formas_pago (forma_pago) values ('EFECTIVO'), ('TARJETA CREDITO'), ('TARJETA DEBITO'), ('SEGURO'), ('CHEQUE');
+Query OK, 5 rows affected (0.0066 sec)
+
+Records: 5  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > alter table formas_pago_pacientes modify forma_pago_id int null;
+Query OK, 0 rows affected (0.0871 sec)
+
+Records: 0  Duplicates: 0  Warnings: 0
+insert into direcciones_empleados(empleado_id, direccion_id) values (1, 58), (2, 54), (3, 76), (4, 32), (5, 85), (6, 35), (7, 15), (8, 84), (9, 34), (10, 60), (11, 59), (12, 53), (13, 6), (14, 30), (15, 90), (16, 11), (17, 74), (18, 44), (19, 29), (20, 21), (21, 68), (22, 38), (23, 37), (24, 25), (25, 82), (26, 8), (27, 22), (28, 31), (29, 86), (30, 77);
+Query OK, 30 rows affected (0.0078 sec)
+
+Records: 30  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO formas_pago_pacientes(paciente_id, forma_pago_id)
+                                         -> VALUES
+                                         -> (3, 1),
+                                         -> (4, 2),
+                                         -> (5, 3),
+                                         -> (6, 4),
+                                         -> (7, 5),
+                                         -> (8, 1),
+                                         -> (9, 2),
+                                         -> (10, 3),
+                                         -> (11, 4),
+                                         -> (12, 5),
+                                         -> (17, 1),
+                                         -> (18, 2),
+                                         -> (19, 3),
+                                         -> (20, 4),
+                                         -> (21, 5),
+                                         -> (26, 1),
+                                         -> (27, 2),
+                                         -> (28, 3),
+                                         -> (29, 4),
+                                         -> (30, 5),
+                                         -> (37, 1),
+                                         -> (38, 2),
+                                         -> (39, 3),
+                                         -> (40, 4),
+                                         -> (41, 5),
+                                         -> (46, 1),
+                                         -> (47, 2),
+                                         -> (48, 3),
+                                         -> (49, 4),
+                                         -> (50, 5),
+                                         -> (53, 1),
+                                         -> (54, 2),
+                                         -> (55, 3),
+                                         -> (56, 4),
+                                         -> (57, 5);
+Query OK, 35 rows affected (0.0432 sec)
+
+Records: 35  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO cuentas_pacientes (paciente_id, forma_pago_pac_id, fecha_emision, otros) VALUES
+                                         -> (3, 1, '2017-04-20', NULL),
+                                         -> (4, 2, '2017-04-17', NULL),
+                                         -> (5, 3, '2017-04-20', NULL),
+                                         -> (6, 4, '2017-04-22', NULL),
+                                         -> (7, 5, '2017-04-21', NULL),
+                                         -> (8, 1, '2017-04-18', NULL),
+                                         -> (9, 2, '2017-04-24', NULL),
+                                         -> (10, 3, '2017-04-27', NULL),
+                                         -> (11, 4, '2017-04-28', NULL),
+                                         -> (12, 5, '2017-04-27', NULL),
+                                         -> (17, 1, '2017-04-28', NULL),
+                                         -> (18, 2, '2017-04-28', NULL),
+                                         -> (19, 3, '2017-04-29', NULL),
+                                         -> (20, 4, '2017-04-26', NULL),
+                                         -> (21, 5, '2017-05-05', NULL);
+Query OK, 15 rows affected (0.0182 sec)
+
+Records: 15  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO cuentas_pacientes_detalles (cuentas_pacientes_id, detalle, cantidad, costo_total) VALUES
+                                         -> (1, 'Tratamiento', 3, 151347.00),
+                                         -> (1, 'Tratamiento', 3, 286210.00),
+                                         -> (2, 'Tratamiento', 3, 50299.00),
+                                         -> (2, 'Tratamiento', 2, 370053.00),
+                                         -> (3, 'Tratamiento', 2, 335363.00),
+                                         -> (3, 'Tratamiento', 2, 468092.00),
+                                         -> (4, 'Tratamiento', 3, 336904.00),
+                                         -> (4, 'Tratamiento', 3, 526929.00),
+                                         -> (5, 'Tratamiento', 1, 284730.00),
+                                         -> (5, 'Tratamiento', 1, 550774.00),
+                                         -> (6, 'Tratamiento', 1, 692302.00),
+                                         -> (6, 'Tratamiento', 3, 152954.00),
+                                         -> (7, 'Tratamiento', 1, 191741.00),
+                                         -> (7, 'Tratamiento', 2, 361733.00),
+                                         -> (8, 'Tratamiento', 1, 744675.00),
+                                         -> (8, 'Tratamiento', 2, 554900.00),
+                                         -> (9, 'Tratamiento', 1, 859558.00),
+                                         -> (9, 'Tratamiento', 1, 285060.00),
+                                         -> (10, 'Tratamiento', 1, 507315.00),
+                                         -> (10, 'Tratamiento', 1, 525974.00),
+                                         -> (11, 'Tratamiento', 2, 189576.00),
+                                         -> (11, 'Tratamiento', 3, 585548.00),
+                                         -> (12, 'Tratamiento', 3, 615740.00),
+                                         -> (12, 'Tratamiento', 2, 50663.00);
+Query OK, 24 rows affected (0.0118 sec)
+
+Records: 24  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > SET FOREIGN_KEY_CHECKS = 0;
+Query OK, 0 rows affected (0.0023 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > TRUNCATE formas_pago_pacientes;
+Query OK, 0 rows affected (0.1871 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO formas_pago_pacientes(paciente_id, forma_pago_id)
+                                         -> VALUES
+                                         -> (1, NULL),
+                                         -> (2, NULL),
+                                         -> (3, 1),
+                                         -> (4, 2),
+                                         -> (5, 3),
+                                         -> (6, 4),
+                                         -> (7, 5),
+                                         -> (8, 1),
+                                         -> (9, 2),
+                                         -> (10, 3),
+                                         -> (11, 4),
+                                         -> (12, 5),
+                                         -> (13, NULL),
+                                         -> (14, NULL),
+                                         -> (15, NULL),
+                                         -> (16, NULL),
+                                         -> (17, 1),
+                                         -> (18, 2),
+                                         -> (19, 3),
+                                         -> (20, 4),
+                                         -> (21, 5),
+                                         -> (22, NULL),
+                                         -> (23, NULL),
+                                         -> (24, NULL),
+                                         -> (25, NULL),
+                                         -> (26, 1),
+                                         -> (27, 2),
+                                         -> (28, 3),
+                                         -> (29, 4),
+                                         -> (30, 5),
+                                         -> (31, NULL),
+                                         -> (32, NULL),
+                                         -> (33, NULL),
+                                         -> (34, NULL),
+                                         -> (35, NULL),
+                                         -> (36, NULL),
+                                         -> (37, 1),
+                                         -> (38, 2),
+                                         -> (39, 3),
+                                         -> (40, 4),
+                                         -> (41, 5),
+                                         -> (42, NULL),
+                                         -> (43, NULL),
+                                         -> (44, NULL),
+                                         -> (45, NULL),
+                                         -> (46, 1),
+                                         -> (47, 2),
+                                         -> (48, 3),
+                                         -> (49, 4),
+                                         -> (50, 5),
+                                         -> (51, NULL),
+                                         -> (52, NULL),
+                                         -> (53, 1),
+                                         -> (54, 2),
+                                         -> (55, 3),
+                                         -> (56, 4),
+                                         -> (57, 5),
+                                         -> (58, NULL);
+Query OK, 58 rows affected (0.0253 sec)
+
+Records: 58  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > TRUNCATE cuentas_pacientes;
+Query OK, 0 rows affected (0.0867 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO cuentas_pacientes(paciente_id, forma_pago_pac_id, fecha_emision)
+
+                                         -> VALUES
+                                         -> (1, 1, '2017-04-20'),
+                                         -> (1, 1, '2017-04-20'),
+                                         -> (2, 2, '2017-04-17'),
+                                         -> (2, 2, '2017-04-17'),
+                                         -> (3, 3, '2017-04-20'),
+                                         -> (3, 3, '2017-04-20'),
+                                         -> (4, 4, '2017-04-22'),
+                                         -> (4, 4, '2017-04-22'),
+                                         -> (5, 5, '2017-04-21'),
+                                         -> (5, 5, '2017-04-21'),
+                                         -> (6, 6, '2017-04-18'),
+                                         -> (6, 6, '2017-04-18'),
+                                         -> (7, 7, '2017-04-24'),
+                                         -> (7, 7, '2017-04-24'),
+                                         -> (8, 8, '2017-04-27'),
+                                         -> (8, 8, '2017-04-27'),
+                                         -> (9, 9, '2017-04-28'),
+                                         -> (9, 9, '2017-04-28'),
+                                         -> (10, 10, '2017-04-27'),
+                                         -> (10, 10, '2017-04-27'),
+                                         -> (11, 11, '2017-04-28'),
+                                         -> (11, 11, '2017-04-28'),
+                                         -> (12, 12, '2017-04-28'),
+                                         -> (12, 12, '2017-04-28'),
+                                         -> (13, 13, '2017-04-29'),
+                                         -> (13, 13, '2017-04-29'),
+                                         -> (14, 14, '2017-04-26'),
+                                         -> (14, 14, '2017-04-26'),
+                                         -> (15, 15, '2017-05-05'),
+                                         -> (15, 15, '2017-05-05'),
+                                         -> (16, 16, '2017-05-02'),
+                                         -> (16, 16, '2017-05-02'),
+                                         -> (17, 17, '2017-05-01'),
+                                         -> (17, 17, '2017-05-01'),
+                                         -> (18, 18, '2017-05-12'),
+                                         -> (18, 18, '2017-05-12'),
+                                         -> (19, 19, '2017-05-03'),
+                                         -> (19, 19, '2017-05-03'),
+                                         -> (20, 20, '2017-05-09'),
+                                         -> (20, 20, '2017-05-09'),
+                                         -> (21, 21, '2017-05-08'),
+                                         -> (21, 21, '2017-05-08'),
+                                         -> (22, 22, '2017-05-14'),
+                                         -> (22, 22, '2017-05-14'),
+                                         -> (23, 23, '2017-05-12'),
+                                         -> (23, 23, '2017-05-12'),
+                                         -> (24, 24, '2017-05-05'),
+                                         -> (24, 24, '2017-05-05'),
+                                         -> (25, 25, '2017-05-19'),
+                                         -> (25, 25, '2017-05-19'),
+                                         -> (26, 26, '2017-05-14'),
+                                         -> (26, 26, '2017-05-14'),
+                                         -> (27, 27, '2017-05-12'),
+                                         -> (27, 27, '2017-05-12'),
+                                         -> (28, 28, '2017-05-15'),
+                                         -> (28, 28, '2017-05-15'),
+                                         -> (29, 29, '2017-05-13'),
+                                         -> (29, 29, '2017-05-13'),
+                                         -> (30, 30, '2017-05-18'),
+                                         -> (30, 30, '2017-05-18'),
+                                         -> (31, 31, '2017-05-20'),
+                                         -> (31, 31, '2017-05-20'),
+                                         -> (32, 32, '2017-05-26'),
+                                         -> (32, 32, '2017-05-26'),
+                                         -> (33, 33, '2017-05-22'),
+                                         -> (33, 33, '2017-05-22'),
+                                         -> (34, 34, '2017-05-21'),
+                                         -> (34, 34, '2017-05-21'),
+                                         -> (35, 35, '2017-05-16'),
+                                         -> (35, 35, '2017-05-16'),
+                                         -> (36, 36, '2017-05-20'),
+                                         -> (36, 36, '2017-05-20'),
+                                         -> (37, 37, '2017-05-27'),
+                                         -> (37, 37, '2017-05-27'),
+                                         -> (38, 38, '2017-05-21'),
+                                         -> (38, 38, '2017-05-21'),
+                                         -> (39, 39, '2017-05-26'),
+                                         -> (39, 39, '2017-05-26'),
+                                         -> (40, 40, '2017-05-31'),
+                                         -> (40, 40, '2017-05-31'),
+                                         -> (41, 41, '2017-05-31'),
+                                         -> (41, 41, '2017-05-31'),
+                                         -> (42, 42, '2017-06-01'),
+                                         -> (42, 42, '2017-06-01'),
+                                         -> (43, 43, '2017-05-27'),
+                                         -> (43, 43, '2017-05-27'),
+                                         -> (44, 44, '2017-06-07'),
+                                         -> (44, 44, '2017-06-07'),
+                                         -> (45, 45, '2017-06-04'),
+                                         -> (45, 45, '2017-06-04'),
+                                         -> (46, 46, '2017-06-07'),
+                                         -> (46, 46, '2017-06-07'),
+                                         -> (47, 47, '2017-05-31'),
+                                         -> (47, 47, '2017-05-31'),
+                                         -> (48, 48, '2017-06-07'),
+                                         -> (48, 48, '2017-06-07'),
+                                         -> (49, 49, '2017-05-31'),
+                                         -> (49, 49, '2017-05-31'),
+                                         -> (50, 50, '2017-06-03'),
+                                         -> (50, 50, '2017-06-03'),
+                                         -> (51, 51, '2017-06-03'),
+                                         -> (51, 51, '2017-06-03'),
+                                         -> (52, 52, '2017-06-10'),
+                                         -> (52, 52, '2017-06-10'),
+                                         -> (53, 53, '2017-06-14'),
+                                         -> (53, 53, '2017-06-14'),
+                                         -> (54, 54, '2017-06-09'),
+                                         -> (54, 54, '2017-06-09'),
+                                         -> (55, 55, '2017-06-14'),
+                                         -> (55, 55, '2017-06-14'),
+                                         -> (56, 56, '2017-06-17'),
+                                         -> (56, 56, '2017-06-17'),
+                                         -> (57, 57, '2017-06-16'),
+                                         -> (57, 57, '2017-06-16'),
+                                         -> (58, 58, '2017-06-15'),
+                                         -> (58, 58, '2017-06-15');
+Query OK, 116 rows affected (0.0129 sec)
+
+Records: 116  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > TRUNCATE cuentas_pacientes_detalles;
+Query OK, 0 rows affected (0.0653 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO cuentas_pacientes_detalles
+                                         -> (cuentas_pacientes_id, detalle, cantidad, costo_total)
+                                         -> VALUES
+                                         -> (1, 'Tratamiento', 3, 151347.0),
+                                         -> (2, 'Tratamiento', 3, 286210.0),
+                                         -> (3, 'Tratamiento', 3, 50299.0),
+                                         -> (4, 'Tratamiento', 2, 370053.0),
+                                         -> (5, 'Tratamiento', 2, 335363.0),
+                                         -> (6, 'Tratamiento', 2, 468092.0),
+                                         -> (7, 'Tratamiento', 3, 336904.0),
+                                         -> (8, 'Tratamiento', 3, 526929.0),
+                                         -> (9, 'Tratamiento', 1, 284730.0),
+                                         -> (10, 'Tratamiento', 1, 550774.0),
+                                         -> (11, 'Tratamiento', 1, 692302.0),
+                                         -> (12, 'Tratamiento', 3, 152954.0),
+                                         -> (13, 'Tratamiento', 1, 191741.0),
+                                         -> (14, 'Tratamiento', 2, 361733.0),
+                                         -> (15, 'Tratamiento', 1, 744675.0),
+                                         -> (16, 'Tratamiento', 2, 554900.0),
+                                         -> (17, 'Tratamiento', 1, 859558.0),
+                                         -> (18, 'Tratamiento', 1, 285060.0),
+                                         -> (19, 'Tratamiento', 1, 507315.0),
+                                         -> (20, 'Tratamiento', 1, 525974.0),
+                                         -> (21, 'Tratamiento', 2, 189576.0),
+                                         -> (22, 'Tratamiento', 3, 585548.0),
+                                         -> (23, 'Tratamiento', 3, 615740.0),
+                                         -> (24, 'Tratamiento', 2, 50663.0),
+                                         -> (25, 'Tratamiento', 2, 251751.0),
+                                         -> (26, 'Tratamiento', 2, 275709.0),
+                                         -> (27, 'Tratamiento', 3, 289314.0),
+                                         -> (28, 'Tratamiento', 3, 239682.0),
+                                         -> (29, 'Tratamiento', 2, 346244.0),
+                                         -> (30, 'Tratamiento', 1, 563209.0),
+                                         -> (31, 'Tratamiento', 1, 321521.0),
+                                         -> (32, 'Tratamiento', 2, 234213.0),
+                                         -> (33, 'Tratamiento', 3, 729192.0),
+                                         -> (34, 'Tratamiento', 1, 589304.0),
+                                         -> (35, 'Tratamiento', 2, 654777.0),
+                                         -> (36, 'Tratamiento', 3, 248645.0),
+                                         -> (37, 'Tratamiento', 2, 141906.0),
+                                         -> (38, 'Tratamiento', 1, 443071.0),
+                                         -> (39, 'Tratamiento', 1, 749107.0),
+                                         -> (40, 'Tratamiento', 3, 219624.0),
+                                         -> (41, 'Tratamiento', 1, 347804.0),
+                                         -> (42, 'Tratamiento', 1, 584960.0),
+                                         -> (43, 'Tratamiento', 2, 824953.0),
+                                         -> (44, 'Tratamiento', 3, 429701.0),
+                                         -> (45, 'Tratamiento', 3, 966042.0),
+                                         -> (46, 'Tratamiento', 3, 570861.0),
+                                         -> (47, 'Tratamiento', 1, 376164.0),
+                                         -> (48, 'Tratamiento', 2, 46589.0),
+                                         -> (49, 'Tratamiento', 3, 376236.0),
+                                         -> (50, 'Tratamiento', 1, 566074.0),
+                                         -> (51, 'Tratamiento', 1, 255123.0),
+                                         -> (52, 'Tratamiento', 2, 549895.0),
+                                         -> (53, 'Tratamiento', 3, 317412.0),
+                                         -> (54, 'Tratamiento', 3, 88233.0),
+                                         -> (55, 'Tratamiento', 3, 766565.0),
+                                         -> (56, 'Tratamiento', 3, 184519.0),
+                                         -> (57, 'Tratamiento', 3, 230187.0),
+                                         -> (58, 'Tratamiento', 3, 34939.0),
+                                         -> (59, 'Tratamiento', 2, 973681.0),
+                                         -> (60, 'Tratamiento', 1, 140167.0),
+                                         -> (61, 'Tratamiento', 3, 556224.0),
+                                         -> (62, 'Tratamiento', 1, 268348.0),
+                                         -> (63, 'Tratamiento', 1, 789826.0),
+                                         -> (64, 'Tratamiento', 3, 54824.0),
+                                         -> (65, 'Tratamiento', 3, 797003.0),
+                                         -> (66, 'Tratamiento', 1, 343220.0),
+                                         -> (67, 'Tratamiento', 3, 896987.0),
+                                         -> (68, 'Tratamiento', 1, 141859.0),
+                                         -> (69, 'Tratamiento', 1, 645401.0),
+                                         -> (70, 'Tratamiento', 1, 187645.0),
+                                         -> (71, 'Tratamiento', 3, 732868.0),
+                                         -> (72, 'Tratamiento', 3, 176937.0),
+                                         -> (73, 'Tratamiento', 1, 707681.0),
+                                         -> (74, 'Tratamiento', 2, 292454.0),
+                                         -> (75, 'Tratamiento', 3, 110331.0),
+                                         -> (76, 'Tratamiento', 1, 320878.0),
+                                         -> (77, 'Tratamiento', 3, 158256.0),
+                                         -> (78, 'Tratamiento', 3, 354925.0),
+                                         -> (79, 'Tratamiento', 2, 81944.0),
+                                         -> (80, 'Tratamiento', 3, 511089.0),
+                                         -> (81, 'Tratamiento', 2, 881690.0),
+                                         -> (82, 'Tratamiento', 2, 59643.0),
+                                         -> (83, 'Tratamiento', 2, 602980.0),
+                                         -> (84, 'Tratamiento', 2, 583011.0),
+                                         -> (85, 'Tratamiento', 1, 268138.0),
+                                         -> (86, 'Tratamiento', 3, 124520.0),
+                                         -> (87, 'Tratamiento', 3, 379874.0),
+                                         -> (88, 'Tratamiento', 2, 61608.0),
+                                         -> (89, 'Tratamiento', 1, 153311.0),
+                                         -> (90, 'Tratamiento', 2, 452630.0),
+                                         -> (91, 'Tratamiento', 3, 863400.0),
+                                         -> (92, 'Tratamiento', 1, 541120.0),
+                                         -> (93, 'Tratamiento', 2, 860995.0),
+                                         -> (94, 'Tratamiento', 3, 68985.0),
+                                         -> (95, 'Tratamiento', 3, 149290.0),
+                                         -> (96, 'Tratamiento', 1, 79515.0),
+                                         -> (97, 'Tratamiento', 1, 267026.0),
+                                         -> (98, 'Tratamiento', 1, 596734.0),
+                                         -> (99, 'Tratamiento', 1, 834540.0),
+                                         -> (100, 'Tratamiento', 1, 335679.0),
+                                         -> (101, 'Tratamiento', 3, 153439.0),
+                                         -> (102, 'Tratamiento', 1, 71023.0),
+                                         -> (103, 'Tratamiento', 3, 236628.0),
+                                         -> (104, 'Tratamiento', 1, 443391.0),
+                                         -> (105, 'Tratamiento', 3, 871864.0),
+                                         -> (106, 'Tratamiento', 2, 479401.0),
+                                         -> (107, 'Tratamiento', 3, 680413.0),
+                                         -> (108, 'Tratamiento', 1, 132635.0),
+                                         -> (109, 'Tratamiento', 3, 343354.0),
+                                         -> (110, 'Tratamiento', 3, 352489.0),
+                                         -> (111, 'Tratamiento', 3, 57805.0),
+                                         -> (112, 'Tratamiento', 1, 373220.0),
+                                         -> (113, 'Tratamiento', 3, 308184.0),
+                                         -> (114, 'Tratamiento', 3, 597900.0),
+                                         -> (115, 'Tratamiento', 2, 453174.0),
+                                         -> (116, 'Tratamiento', 3, 378332.0);
+Query OK, 116 rows affected (0.0126 sec)
+
+Records: 116  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO registro_pacientes
+                                         -> (paciente_id, cuentas_pacientes_id, registro_por_empleado_id, fecha_admision, condicion_medica)
+                                         -> VALUES
+                                         -> (1, 1, 1, "2017-04-20", "Abdominal Aortic Aneurysm"),
+                                         -> (1, 2, 1, "2017-04-20", "Abdominal Aortic Aneurysm"),
+                                         -> (2, 3, 2, "2017-04-17", "Abdominal Cramps (Heat Cramps)"),
+                                         -> (2, 4, 2, "2017-04-17", "Abdominal Cramps (Heat Cramps)"),
+                                         -> (3, 5, 3, "2017-04-20", "Abdominal Hernia (Hernia Overview)"),
+                                         -> (3, 6, 3, "2017-04-20", "Abdominal Hernia (Hernia Overview)"),
+                                         -> (4, 7, 4, "2017-04-22", "Bacterial Vaginosis (Causes, Symptoms, Treatment)"),
+                                         -> (4, 8, 4, "2017-04-22", "Bacterial Vaginosis (Causes, Symptoms, Treatment)"),
+                                         -> (5, 9, 5, "2017-04-21", "Bad Breath"),
+                                         -> (5, 10, 5, "2017-04-21", "Bad Breath"),
+                                         -> (6, 11, 6, "2017-04-18", "Bad Cholesterol Test (Cholesterol Test)"),
+                                         -> (6, 12, 6, "2017-04-18", "Bad Cholesterol Test (Cholesterol Test)"),
+                                         -> (7, 13, 7, "2017-04-24", "Baker Cyst"),
+                                         -> (7, 14, 7, "2017-04-24", "Baker Cyst"),
+                                         -> (8, 15, 8, "2017-04-27", "Farting (Intestinal Gas (Belching, Bloating, Flatulence))"),
+                                         -> (8, 16, 8, "2017-04-27", "Farting (Intestinal Gas (Belching, Bloating, Flatulence))"),
+                                         -> (9, 17, 9, "2017-04-28", "Fast Heart Beat (Palpitations Overview)"),
+                                         -> (9, 18, 9, "2017-04-28", "Fast Heart Beat (Palpitations Overview)"),
+                                         -> (10, 19, 10, "2017-04-27", "Fatigue"),
+                                         -> (10, 20, 10, "2017-04-27", "Fatigue"),
+                                         -> (11, 21, 11, "2017-04-28", "Fatigue From Cancer (Cancer Fatigue"),
+                                         -> (11, 22, 11, "2017-04-28", "Fatigue From Cancer (Cancer Fatigue"),
+                                         -> (12, 23, 12, "2017-04-28", "Lambliasis (Giardia Lamblia)"),
+                                         -> (12, 24, 12, "2017-04-28", "Lambliasis (Giardia Lamblia)"),
+                                         -> (13, 25, 13, "2017-04-29", "Lambliosis (Giardia Lamblia)"),
+                                         -> (13, 26, 13, "2017-04-29", "Lambliosis (Giardia Lamblia)"),
+                                         -> (14, 27, 14, "2017-04-26", "Landau-Kleffner Syndrome"),
+                                         -> (14, 28, 14, "2017-04-26", "Landau-Kleffner Syndrome"),
+                                         -> (15, 29, 15, "2017-05-05", "Lap Band Surgery (Gastric Banding)"),
+                                         -> (15, 30, 15, "2017-05-05", "Lap Band Surgery (Gastric Banding)"),
+                                         -> (16, 31, 16, "2017-05-02", "Laparoscopic Liver Biopsy (Liver Biopsy)"),
+                                         -> (16, 32, 16, "2017-05-02", "Laparoscopic Liver Biopsy (Liver Biopsy)"),
+                                         -> (17, 33, 17, "2017-05-01", "Omega-3 Fatty Acids"),
+                                         -> (17, 34, 17, "2017-05-01", "Omega-3 Fatty Acids"),
+                                         -> (18, 35, 18, "2017-05-12", "Onchocerciasis"),
+                                         -> (18, 36, 18, "2017-05-12", "Onchocerciasis"),
+                                         -> (19, 37, 19, "2017-05-03", "Onychocryptosis (Ingrown Toenail)"),
+                                         -> (19, 38, 19, "2017-05-03", "Onychocryptosis (Ingrown Toenail)"),
+                                         -> (20, 39, 20, "2017-05-09", "Scarlatina)"),
+                                         -> (20, 40, 20, "2017-05-09", "Scarlatina)"),
+                                         -> (21, 41, 21, "2017-05-08", "Scars"),
+                                         -> (21, 42, 21, "2017-05-08", "Scars"),
+                                         -> (22, 43, 22, "2017-05-14", "Schatzki Ring"),
+                                         -> (22, 44, 22, "2017-05-14", "Schatzki Ring"),
+                                         -> (23, 45, 23, "2017-05-12", "Scheuermann's Kyphosis (Kyphosis)"),
+                                         -> (23, 46, 23, "2017-05-12", "Scheuermann's Kyphosis (Kyphosis)"),
+                                         -> (24, 47, 24, "2017-05-05", "Schistosoma guineensis (Schistosomiasis)"),
+                                         -> (24, 48, 24, "2017-05-05", "Schistosoma guineensis (Schistosomiasis)"),
+                                         -> (25, 49, 25, "2017-05-19", "Schistosoma haematobium (Schistosomiasis)"),
+                                         -> (25, 50, 25, "2017-05-19", "Schistosoma haematobium (Schistosomiasis)"),
+                                         -> (26, 51, 26, "2017-05-14", "Schistosoma japonicum (Schistosomiasis)"),
+                                         -> (26, 52, 26, "2017-05-14", "Schistosoma japonicum (Schistosomiasis)"),
+                                         -> (27, 53, 27, "2017-05-12", "Tachycardia (Heart Rhythm Disorders)"),
+                                         -> (27, 54, 27, "2017-05-12", "Tachycardia (Heart Rhythm Disorders)"),
+                                         -> (28, 55, 28, "2017-05-15", "Tachycardia, Paroxysmal Atrial (Paroxysmal Supraventricular Tachycardia (PSVT))"),
+                                         -> (28, 56, 28, "2017-05-15", "Tachycardia, Paroxysmal Atrial (Paroxysmal Supraventricular Tachycardia (PSVT))"),
+                                         -> (29, 57, 29, "2017-05-13", "Tachycardia, Paroxysmal Supraventricular (Paroxysmal Supraventricular Tachycardia (PSVT))"),
+                                         -> (29, 58, 29, "2017-05-13", "Tachycardia, Paroxysmal Supraventricular (Paroxysmal Supraventricular Tachycardia (PSVT))"),
+                                         -> (30, 59, 30, "2017-05-18", "Tailbone Pain (Coccydynia)"),
+                                         -> (30, 60, 30, "2017-05-18", "Tailbone Pain (Coccydynia)"),
+                                         -> (31, 61, 1, "2017-05-20", "Tailor's Bunion (Bunions)"),
+                                         -> (31, 62, 1, "2017-05-20", "Tailor's Bunion (Bunions)"),
+                                         -> (32, 63, 2, "2017-05-26", "Takayasu Arteritis (Takayasu Disease)"),
+                                         -> (32, 64, 2, "2017-05-26", "Takayasu Arteritis (Takayasu Disease)"),
+                                         -> (33, 65, 3, "2017-05-22", "Takayasu Disease"),
+                                         -> (33, 66, 3, "2017-05-22", "Takayasu Disease"),
+                                         -> (34, 67, 4, "2017-05-21", "Taking Dental Medications"),
+                                         -> (34, 68, 4, "2017-05-21", "Taking Dental Medications"),
+                                         -> (35, 69, 5, "2017-05-16", "Tarry Stools (Stool Color Changes)"),
+                                         -> (35, 70, 5, "2017-05-16", "Tarry Stools (Stool Color Changes)"),
+                                         -> (36, 71, 6, "2017-05-20", "Abdominal Aortic Aneurysm"),
+                                         -> (36, 72, 6, "2017-05-20", "Abdominal Aortic Aneurysm"),
+                                         -> (37, 73, 7, "2017-05-27", "Abdominal Cramps (Heat Cramps)"),
+                                         -> (37, 74, 7, "2017-05-27", "Abdominal Cramps (Heat Cramps)"),
+                                         -> (38, 75, 8, "2017-05-21", "Abdominal Hernia (Hernia Overview)"),
+                                         -> (38, 76, 8, "2017-05-21", "Abdominal Hernia (Hernia Overview)"),
+                                         -> (39, 77, 9, "2017-05-26", "Bacterial Vaginosis (Causes, Symptoms, Treatment)"),
+                                         -> (39, 78, 9, "2017-05-26", "Bacterial Vaginosis (Causes, Symptoms, Treatment)"),
+                                         -> (40, 79, 10, "2017-05-31", "Bad Breath"),
+                                         -> (40, 80, 10, "2017-05-31", "Bad Breath"),
+                                         -> (41, 81, 11, "2017-05-31", "Bad Cholesterol Test (Cholesterol Test)"),
+                                         -> (41, 82, 11, "2017-05-31", "Bad Cholesterol Test (Cholesterol Test)"),
+                                         -> (42, 83, 12, "2017-06-01", "Baker Cyst"),
+                                         -> (42, 84, 12, "2017-06-01", "Baker Cyst"),
+                                         -> (43, 85, 13, "2017-05-27", "Farting (Intestinal Gas (Belching, Bloating, Flatulence))"),
+                                         -> (43, 86, 13, "2017-05-27", "Farting (Intestinal Gas (Belching, Bloating, Flatulence))"),
+                                         -> (44, 87, 14, "2017-06-07", "Fast Heart Beat (Palpitations Overview)"),
+                                         -> (44, 88, 14, "2017-06-07", "Fast Heart Beat (Palpitations Overview)"),
+                                         -> (45, 89, 15, "2017-06-04", "Fatigue"),
+                                         -> (45, 90, 15, "2017-06-04", "Fatigue"),
+                                         -> (46, 91, 16, "2017-06-07", "Fatigue From Cancer (Cancer Fatigue"),
+                                         -> (46, 92, 16, "2017-06-07", "Fatigue From Cancer (Cancer Fatigue"),
+                                         -> (47, 93, 17, "2017-05-31", "Lambliasis (Giardia Lamblia)"),
+                                         -> (47, 94, 17, "2017-05-31", "Lambliasis (Giardia Lamblia)"),
+                                         -> (48, 95, 18, "2017-06-07", "Lambliosis (Giardia Lamblia)"),
+                                         -> (48, 96, 18, "2017-06-07", "Lambliosis (Giardia Lamblia)"),
+                                         -> (49, 97, 19, "2017-05-31", "Landau-Kleffner Syndrome"),
+                                         -> (49, 98, 19, "2017-05-31", "Landau-Kleffner Syndrome"),
+                                         -> (50, 99, 20, "2017-06-03", "Lap Band Surgery (Gastric Banding)"),
+                                         -> (50, 100, 20, "2017-06-03", "Lap Band Surgery (Gastric Banding)"),
+                                         -> (51, 101, 21, "2017-06-03", "Laparoscopic Liver Biopsy (Liver Biopsy)"),
+                                         -> (51, 102, 21, "2017-06-03", "Laparoscopic Liver Biopsy (Liver Biopsy)"),
+                                         -> (52, 103, 22, "2017-06-10", "Omega-3 Fatty Acids"),
+                                         -> (52, 104, 22, "2017-06-10", "Omega-3 Fatty Acids"),
+                                         -> (53, 105, 23, "2017-06-14", "Onchocerciasis"),
+                                         -> (53, 106, 23, "2017-06-14", "Onchocerciasis"),
+                                         -> (54, 107, 24, "2017-06-09", "Onychocryptosis (Ingrown Toenail)"),
+                                         -> (54, 108, 24, "2017-06-09", "Onychocryptosis (Ingrown Toenail)"),
+                                         -> (55, 109, 25, "2017-06-14", "Scarlatina)"),
+                                         -> (55, 110, 25, "2017-06-14", "Scarlatina)"),
+                                         -> (56, 111, 26, "2017-06-17", "Scars"),
+                                         -> (56, 112, 26, "2017-06-17", "Scars"),
+                                         -> (57, 113, 27, "2017-06-16", "Schatzki Ring"),
+                                         -> (57, 114, 27, "2017-06-16", "Schatzki Ring"),
+                                         -> (58, 115, 28, "2017-06-15", "Scheuermann's Kyphosis (Kyphosis)"),
+                                         -> (58, 116, 28, "2017-06-15", "Scheuermann's Kyphosis (Kyphosis)");
+Query OK, 116 rows affected (0.0173 sec)
+
+Records: 116  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > SET FOREIGN_KEY_CHECKS = 1;
+Query OK, 0 rows affected (0.0006 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > INSERT INTO direcciones_pacientes(paciente_id, direccion_id)
+                                         -> VALUES
+                                         -> (1, 73),
+                                         -> (1, 16),
+                                         -> (2, 39),
+                                         -> (2, 66),
+                                         -> (3, 70),
+                                         -> (3, 87),
+                                         -> (4, 4),
+                                         -> (5, 41),
+                                         -> (6, 56),
+                                         -> (7, 10),
+                                         -> (8, 45),
+                                         -> (9, 3),
+                                         -> (10, 9),
+                                         -> (11, 55),
+                                         -> (12, 51),
+                                         -> (13, 81),
+                                         -> (14, 61),
+                                         -> (15, 36),
+                                         -> (16, 42),
+                                         -> (17, 91),
+                                         -> (18, 24),
+                                         -> (19, 17),
+                                         -> (20, 67),
+                                         -> (21, 79),
+                                         -> (22, 46),
+                                         -> (23, 5),
+                                         -> (24, 65),
+                                         -> (25, 43),
+                                         -> (26, 20),
+                                         -> (27, 89),
+                                         -> (28, 64),
+                                         -> (29, 75),
+                                         -> (30, 47),
+                                         -> (31, 33),
+                                         -> (32, 13),
+                                         -> (33, 19),
+                                         -> (34, 78),
+                                         -> (35, 49),
+                                         -> (36, 52),
+                                         -> (37, 26),
+                                         -> (38, 57),
+                                         -> (39, 71),
+                                         -> (40, 23),
+                                         -> (41, 1),
+                                         -> (42, 7),
+                                         -> (43, 2),
+                                         -> (44, 69),
+                                         -> (45, 27),
+                                         -> (46, 50),
+                                         -> (47, 40),
+                                         -> (48, 28),
+                                         -> (49, 88),
+                                         -> (50, 80),
+                                         -> (51, 18),
+                                         -> (52, 62),
+                                         -> (53, 83),
+                                         -> (54, 63),
+                                         -> (55, 14),
+                                         -> (56, 72),
+                                         -> (57, 12),
+                                         -> (58, 48);
+Query OK, 61 rows affected (0.0131 sec)
+
+Records: 61  Duplicates: 0  Warnings: 0
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat, d.calle, d.codigo_postal, d.ciudad, d.pais
+                                         -> FROM pacientes p
+                                         -> JOIN direcciones_pacientes dp ON p.paciente_id = dp.paciente_id
+                                         -> JOIN direcciones d ON dp.direccion_id = d.direccion_id
+                                         -> WHERE d.pais = 'México';
++-----------+--------------+-------------------------------+---------------+-------------+--------+
+| nombre    | apellido_pat | calle                         | codigo_postal | ciudad      | pais   |
++-----------+--------------+-------------------------------+---------------+-------------+--------+
+| Bezalel   | Simmel       | Avda. de la Constitución 2222 | 71760         | México D.F. | Mexico |
+| Berhard   | McFarlin     | Calle Dr. Jorge Cash 321      | 19460         | México D.F. | Mexico |
+| Parto     | Bamford      | Mataderos 2312                | 37179         | México D.F. | Mexico |
+| Eberhardt | Terkki       | Sierras de Granada 9993       | 45792         | Mxico D.F.  | Mexico |
++-----------+--------------+-------------------------------+---------------+-------------+--------+
+4 rows in set (0.0027 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT e.nombre, e.apellido_pat, d.calle, d.codigo_postal, d.ciudad, d.pais
+                                         -> FROM empleados e
+                                         -> JOIN direcciones_empleados de ON e.empleados_id = de.empleado_id
+                                         -> JOIN direcciones d ON de.direccion_id = d.direccion_id
+                                         -> WHERE d.pais = 'Brazil';
++----------+--------------+---------------------------+---------------+----------------+--------+
+| nombre   | apellido_pat | calle                     | codigo_postal | ciudad         | pais   |
++----------+--------------+---------------------------+---------------+----------------+--------+
+| Anoosh   | Peyn         | Alameda dos Canários, 891 | 36965         | São Paulo      | Brazil |
+| Claudi   | Stavenow     | Av. Copacabana, 267       | 34941         | Rio de Janeiro | Brazil |
+| Zhongwei | Rosen        | Av. Inês de Castro, 414   | 14942         | São Paulo      | Brazil |
+| Tse      | Herber       | Rua da Panificadora, 12   | 37964         | Rio de Janeiro | Brazil |
++----------+--------------+---------------------------+---------------+----------------+--------+
+4 rows in set (0.0028 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat, c.numero_cuarto
+                                         -> FROM pacientes p
+                                         -> JOIN cuartos c ON p.paciente_id = c.paciente_id
+                                         -> WHERE c.numero_cuarto < 200;
++------------+--------------+---------------+
+| nombre     | apellido_pat | numero_cuarto |
++------------+--------------+---------------+
+| Georgi     | Facello      |           121 |
+| Bezalel    | Simmel       |           190 |
+| Parto      | Bamford      |           108 |
+| Chirstian  | Koblick      |           179 |
+| Kyoichi    | Maliniak     |           158 |
+| Anneke     | Preusig      |           183 |
+| Tzvetan    | Zielinski    |           142 |
+| Saniya     | Kalloufi     |           108 |
+| Sumant     | Peac         |           100 |
+| Duangkaew  | Piveteau     |           109 |
+| Mary       | Sluis        |           116 |
+| Patricio   | Bridgland    |           182 |
+| Eberhardt  | Terkki       |           180 |
+| Berni      | Genin        |           188 |
+| Guoxiang   | Nooteboom    |           173 |
+| Kazuhito   | Cappelletti  |           176 |
+| Cristinel  | Bouloucos    |           122 |
+| Kazuhide   | Peha         |           155 |
+| Lillian    | Haddadi      |           181 |
+| Mayuko     | Warwick      |           178 |
+| Ramzi      | Erde         |           139 |
+| Shahaf     | Famili       |           119 |
+| Bojan      | Montemayor   |           193 |
+| Suzette    | Pettey       |           153 |
+| Prasadram  | Heyers       |           168 |
+| Yongqiao   | Berztiss     |           115 |
+| Divier     | Reistad      |           140 |
+| Domenick   | Tempesti     |           170 |
+| Otmar      | Herbst       |           153 |
+| Elvis      | Demeyer      |           177 |
+| Karsten    | Joslin       |           101 |
+| Jeong      | Reistad      |           118 |
+| Arif       | Merlo        |           120 |
+| Bader      | Swan         |           156 |
+| Alain      | Chappelet    |           174 |
+| Adamantios | Portugali    |           156 |
++------------+--------------+---------------+
+36 rows in set (0.0045 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat, p.genero
+                                         -> FROM pacientes p
+                                         -> JOIN registro_pacientes rp ON p.paciente_id = rp.paciente_id
+                                         -> WHERE rp.condicion_medica LIKE '%fatigue%';
++-----------+--------------+-----------+
+| nombre    | apellido_pat | genero    |
++-----------+--------------+-----------+
+| Duangkaew | Piveteau     | masculino |
+| Duangkaew | Piveteau     | masculino |
+| Mary      | Sluis        | femenino  |
+| Mary      | Sluis        | femenino  |
+| Moss      | Shanbhogue   | masculino |
+| Moss      | Shanbhogue   | masculino |
+| Lucien    | Rosenbaum    | masculino |
+| Lucien    | Rosenbaum    | masculino |
++-----------+--------------+-----------+
+8 rows in set (0.0018 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT e.nombre AS empleado_nombre, e.apellido_pat AS empleado_apellido,
+                                         ->        p.nombre AS paciente_nombre, p.apellido_pat AS paciente_apellido,
+                                         ->        rp.fecha_admision
+                                         -> FROM empleados e
+                                         -> LEFT JOIN registro_pacientes rp ON e.empleados_id = rp.registro_por_empleado_id
+                                         -> LEFT JOIN pacientes p ON rp.paciente_id = p.paciente_id;
++-----------------+-------------------+-----------------+-------------------+----------------+
+| empleado_nombre | empleado_apellido | paciente_nombre | paciente_apellido | fecha_admision |
++-----------------+-------------------+-----------------+-------------------+----------------+
+| Alejandro       | McAlpine          | Georgi          | Facello           | 2017-04-20     |
+| Alejandro       | McAlpine          | Georgi          | Facello           | 2017-04-20     |
+| Alejandro       | McAlpine          | Karsten         | Joslin            | 2017-05-20     |
+| Alejandro       | McAlpine          | Karsten         | Joslin            | 2017-05-20     |
+| Breannda        | Billingsley       | Bezalel         | Simmel            | 2017-04-17     |
+| Breannda        | Billingsley       | Bezalel         | Simmel            | 2017-04-17     |
+| Breannda        | Billingsley       | Jeong           | Reistad           | 2017-05-26     |
+| Breannda        | Billingsley       | Jeong           | Reistad           | 2017-05-26     |
+| Tse             | Herber            | Parto           | Bamford           | 2017-04-20     |
+| Tse             | Herber            | Parto           | Bamford           | 2017-04-20     |
+| Tse             | Herber            | Arif            | Merlo             | 2017-05-22     |
+| Tse             | Herber            | Arif            | Merlo             | 2017-05-22     |
+| Anoosh          | Peyn              | Chirstian       | Koblick           | 2017-04-22     |
+| Anoosh          | Peyn              | Chirstian       | Koblick           | 2017-04-22     |
+| Anoosh          | Peyn              | Bader           | Swan              | 2017-05-21     |
+| Anoosh          | Peyn              | Bader           | Swan              | 2017-05-21     |
+| Gino            | Leonhardt         | Kyoichi         | Maliniak          | 2017-04-21     |
+| Gino            | Leonhardt         | Kyoichi         | Maliniak          | 2017-04-21     |
+| Gino            | Leonhardt         | Alain           | Chappelet         | 2017-05-16     |
+| Gino            | Leonhardt         | Alain           | Chappelet         | 2017-05-16     |
+| Udi             | Jansch            | Anneke          | Preusig           | 2017-04-18     |
+| Udi             | Jansch            | Anneke          | Preusig           | 2017-04-18     |
+| Udi             | Jansch            | Adamantios      | Portugali         | 2017-05-20     |
+| Udi             | Jansch            | Adamantios      | Portugali         | 2017-05-20     |
+| Satosi          | Awdeh             | Tzvetan         | Zielinski         | 2017-04-24     |
+| Satosi          | Awdeh             | Tzvetan         | Zielinski         | 2017-04-24     |
+| Satosi          | Awdeh             | Pradeep         | Makrucki          | 2017-05-27     |
+| Satosi          | Awdeh             | Pradeep         | Makrucki          | 2017-05-27     |
+| Kwee            | Schusler          | Saniya          | Kalloufi          | 2017-04-27     |
+| Kwee            | Schusler          | Saniya          | Kalloufi          | 2017-04-27     |
+| Kwee            | Schusler          | Huan            | Lortz             | 2017-05-21     |
+| Kwee            | Schusler          | Huan            | Lortz             | 2017-05-21     |
+| Claudi          | Stavenow          | Sumant          | Peac              | 2017-04-28     |
+| Claudi          | Stavenow          | Sumant          | Peac              | 2017-04-28     |
+| Claudi          | Stavenow          | Alejandro       | Brender           | 2017-05-26     |
+| Claudi          | Stavenow          | Alejandro       | Brender           | 2017-05-26     |
+| Charlene        | Brattka           | Duangkaew       | Piveteau          | 2017-04-27     |
+| Charlene        | Brattka           | Duangkaew       | Piveteau          | 2017-04-27     |
+| Charlene        | Brattka           | Weiyi           | Meriste           | 2017-05-31     |
+| Charlene        | Brattka           | Weiyi           | Meriste           | 2017-05-31     |
+| Margareta       | Bierman           | Mary            | Sluis             | 2017-04-28     |
+| Margareta       | Bierman           | Mary            | Sluis             | 2017-04-28     |
+| Margareta       | Bierman           | Uri             | Lenart            | 2017-05-31     |
+| Margareta       | Bierman           | Uri             | Lenart            | 2017-05-31     |
+| Reuven          | Garigliano        | Patricio        | Bridgland         | 2017-04-28     |
+| Reuven          | Garigliano        | Patricio        | Bridgland         | 2017-04-28     |
+| Reuven          | Garigliano        | Magy            | Stamatiou         | 2017-06-01     |
+| Reuven          | Garigliano        | Magy            | Stamatiou         | 2017-06-01     |
+| Hisao           | Lipner            | Eberhardt       | Terkki            | 2017-04-29     |
+| Hisao           | Lipner            | Eberhardt       | Terkki            | 2017-04-29     |
+| Hisao           | Lipner            | Yishay          | Tzvieli           | 2017-05-27     |
+| Hisao           | Lipner            | Yishay          | Tzvieli           | 2017-05-27     |
+| Hironoby        | Sidou             | Berni           | Genin             | 2017-04-26     |
+| Hironoby        | Sidou             | Berni           | Genin             | 2017-04-26     |
+| Hironoby        | Sidou             | Mingsen         | Casley            | 2017-06-07     |
+| Hironoby        | Sidou             | Mingsen         | Casley            | 2017-06-07     |
+| Shir            | McClurg           | Guoxiang        | Nooteboom         | 2017-05-05     |
+| Shir            | McClurg           | Guoxiang        | Nooteboom         | 2017-05-05     |
+| Shir            | McClurg           | Moss            | Shanbhogue        | 2017-06-04     |
+| Shir            | McClurg           | Moss            | Shanbhogue        | 2017-06-04     |
+| Mokhtar         | Bernatsky         | Kazuhito        | Cappelletti       | 2017-05-02     |
+| Mokhtar         | Bernatsky         | Kazuhito        | Cappelletti       | 2017-05-02     |
+| Mokhtar         | Bernatsky         | Lucien          | Rosenbaum         | 2017-06-07     |
+| Mokhtar         | Bernatsky         | Lucien          | Rosenbaum         | 2017-06-07     |
+| Gao             | Dolinsky          | Cristinel       | Bouloucos         | 2017-05-01     |
+| Gao             | Dolinsky          | Cristinel       | Bouloucos         | 2017-05-01     |
+| Gao             | Dolinsky          | Zvonko          | Nyanchama         | 2017-05-31     |
+| Gao             | Dolinsky          | Zvonko          | Nyanchama         | 2017-05-31     |
+| Erez            | Ritzmann          | Kazuhide        | Peha              | 2017-05-12     |
+| Erez            | Ritzmann          | Kazuhide        | Peha              | 2017-05-12     |
+| Erez            | Ritzmann          | Florian         | Syrotiuk          | 2017-06-07     |
+| Erez            | Ritzmann          | Florian         | Syrotiuk          | 2017-06-07     |
+| Mona            | Azuma             | Lillian         | Haddadi           | 2017-05-03     |
+| Mona            | Azuma             | Lillian         | Haddadi           | 2017-05-03     |
+| Mona            | Azuma             | Basil           | Tramer            | 2017-05-31     |
+| Mona            | Azuma             | Basil           | Tramer            | 2017-05-31     |
+| Danel           | Mondadori         | Mayuko          | Warwick           | 2017-05-09     |
+| Danel           | Mondadori         | Mayuko          | Warwick           | 2017-05-09     |
+| Danel           | Mondadori         | Yinghua         | Dredge            | 2017-06-03     |
+| Danel           | Mondadori         | Yinghua         | Dredge            | 2017-06-03     |
+| Kshitij         | Gils              | Ramzi           | Erde              | 2017-05-08     |
+| Kshitij         | Gils              | Ramzi           | Erde              | 2017-05-08     |
+| Kshitij         | Gils              | Hidefumi        | Caine             | 2017-06-03     |
+| Kshitij         | Gils              | Hidefumi        | Caine             | 2017-06-03     |
+| Premal          | Baek              | Shahaf          | Famili            | 2017-05-14     |
+| Premal          | Baek              | Shahaf          | Famili            | 2017-05-14     |
+| Premal          | Baek              | Heping          | Nitsch            | 2017-06-10     |
+| Premal          | Baek              | Heping          | Nitsch            | 2017-06-10     |
+| Zhongwei        | Rosen             | Bojan           | Montemayor        | 2017-05-12     |
+| Zhongwei        | Rosen             | Bojan           | Montemayor        | 2017-05-12     |
+| Zhongwei        | Rosen             | Sanjiv          | Zschoche          | 2017-06-14     |
+| Zhongwei        | Rosen             | Sanjiv          | Zschoche          | 2017-06-14     |
+| Parviz          | Lortz             | Suzette         | Pettey            | 2017-05-05     |
+| Parviz          | Lortz             | Suzette         | Pettey            | 2017-05-05     |
+| Parviz          | Lortz             | Mayumi          | Schueller         | 2017-06-09     |
+| Parviz          | Lortz             | Mayumi          | Schueller         | 2017-06-09     |
+| Vishv           | Zockler           | Prasadram       | Heyers            | 2017-05-19     |
+| Vishv           | Zockler           | Prasadram       | Heyers            | 2017-05-19     |
+| Vishv           | Zockler           | Georgy          | Dredge            | 2017-06-14     |
+| Vishv           | Zockler           | Georgy          | Dredge            | 2017-06-14     |
+| Tuval           | Kalloufi          | Yongqiao        | Berztiss          | 2017-05-14     |
+| Tuval           | Kalloufi          | Yongqiao        | Berztiss          | 2017-05-14     |
+| Tuval           | Kalloufi          | Brendon         | Bernini           | 2017-06-17     |
+| Tuval           | Kalloufi          | Brendon         | Bernini           | 2017-06-17     |
+| Kenroku         | Malabarba         | Divier          | Reistad           | 2017-05-12     |
+| Kenroku         | Malabarba         | Divier          | Reistad           | 2017-05-12     |
+| Kenroku         | Malabarba         | Ebbe            | Callaway          | 2017-06-16     |
+| Kenroku         | Malabarba         | Ebbe            | Callaway          | 2017-06-16     |
+| Somnath         | Foote             | Domenick        | Tempesti          | 2017-05-15     |
+| Somnath         | Foote             | Domenick        | Tempesti          | 2017-05-15     |
+| Somnath         | Foote             | Berhard         | McFarlin          | 2017-06-15     |
+| Somnath         | Foote             | Berhard         | McFarlin          | 2017-06-15     |
+| Xinglin         | Eugenio           | Otmar           | Herbst            | 2017-05-13     |
+| Xinglin         | Eugenio           | Otmar           | Herbst            | 2017-05-13     |
+| Jungsoon        | Syrzycki          | Elvis           | Demeyer           | 2017-05-18     |
+| Jungsoon        | Syrzycki          | Elvis           | Demeyer           | 2017-05-18     |
++-----------------+-------------------+-----------------+-------------------+----------------+
+116 rows in set (0.0042 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > insert into empleados(nombre, apellido_pat, apellido_mat, fecha_nacimiento) value('Prueba', 'Prueba', 'Prueba', '2024-11-09');
+Query OK, 1 row affected (0.0046 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT e.nombre AS empleado_nombre, e.apellido_pat AS empleado_apellido,        p.nombre AS paciente_nombre, p.apellido_pat AS paciente_apellido,        rp.fecha_admision FROM empleados e LEFT JOIN registro_pacientes rp ON e.empleados_id = rp.registro_por_empleado_id LEFT JOIN pacientes p ON rp.paciente_id = p.paciente_id;
++-----------------+-------------------+-----------------+-------------------+----------------+
+| empleado_nombre | empleado_apellido | paciente_nombre | paciente_apellido | fecha_admision |
++-----------------+-------------------+-----------------+-------------------+----------------+
+| Alejandro       | McAlpine          | Georgi          | Facello           | 2017-04-20     |
+| Alejandro       | McAlpine          | Georgi          | Facello           | 2017-04-20     |
+| Alejandro       | McAlpine          | Karsten         | Joslin            | 2017-05-20     |
+| Alejandro       | McAlpine          | Karsten         | Joslin            | 2017-05-20     |
+| Breannda        | Billingsley       | Bezalel         | Simmel            | 2017-04-17     |
+| Breannda        | Billingsley       | Bezalel         | Simmel            | 2017-04-17     |
+| Breannda        | Billingsley       | Jeong           | Reistad           | 2017-05-26     |
+| Breannda        | Billingsley       | Jeong           | Reistad           | 2017-05-26     |
+| Tse             | Herber            | Parto           | Bamford           | 2017-04-20     |
+| Tse             | Herber            | Parto           | Bamford           | 2017-04-20     |
+| Tse             | Herber            | Arif            | Merlo             | 2017-05-22     |
+| Tse             | Herber            | Arif            | Merlo             | 2017-05-22     |
+| Anoosh          | Peyn              | Chirstian       | Koblick           | 2017-04-22     |
+| Anoosh          | Peyn              | Chirstian       | Koblick           | 2017-04-22     |
+| Anoosh          | Peyn              | Bader           | Swan              | 2017-05-21     |
+| Anoosh          | Peyn              | Bader           | Swan              | 2017-05-21     |
+| Gino            | Leonhardt         | Kyoichi         | Maliniak          | 2017-04-21     |
+| Gino            | Leonhardt         | Kyoichi         | Maliniak          | 2017-04-21     |
+| Gino            | Leonhardt         | Alain           | Chappelet         | 2017-05-16     |
+| Gino            | Leonhardt         | Alain           | Chappelet         | 2017-05-16     |
+| Udi             | Jansch            | Anneke          | Preusig           | 2017-04-18     |
+| Udi             | Jansch            | Anneke          | Preusig           | 2017-04-18     |
+| Udi             | Jansch            | Adamantios      | Portugali         | 2017-05-20     |
+| Udi             | Jansch            | Adamantios      | Portugali         | 2017-05-20     |
+| Satosi          | Awdeh             | Tzvetan         | Zielinski         | 2017-04-24     |
+| Satosi          | Awdeh             | Tzvetan         | Zielinski         | 2017-04-24     |
+| Satosi          | Awdeh             | Pradeep         | Makrucki          | 2017-05-27     |
+| Satosi          | Awdeh             | Pradeep         | Makrucki          | 2017-05-27     |
+| Kwee            | Schusler          | Saniya          | Kalloufi          | 2017-04-27     |
+| Kwee            | Schusler          | Saniya          | Kalloufi          | 2017-04-27     |
+| Kwee            | Schusler          | Huan            | Lortz             | 2017-05-21     |
+| Kwee            | Schusler          | Huan            | Lortz             | 2017-05-21     |
+| Claudi          | Stavenow          | Sumant          | Peac              | 2017-04-28     |
+| Claudi          | Stavenow          | Sumant          | Peac              | 2017-04-28     |
+| Claudi          | Stavenow          | Alejandro       | Brender           | 2017-05-26     |
+| Claudi          | Stavenow          | Alejandro       | Brender           | 2017-05-26     |
+| Charlene        | Brattka           | Duangkaew       | Piveteau          | 2017-04-27     |
+| Charlene        | Brattka           | Duangkaew       | Piveteau          | 2017-04-27     |
+| Charlene        | Brattka           | Weiyi           | Meriste           | 2017-05-31     |
+| Charlene        | Brattka           | Weiyi           | Meriste           | 2017-05-31     |
+| Margareta       | Bierman           | Mary            | Sluis             | 2017-04-28     |
+| Margareta       | Bierman           | Mary            | Sluis             | 2017-04-28     |
+| Margareta       | Bierman           | Uri             | Lenart            | 2017-05-31     |
+| Margareta       | Bierman           | Uri             | Lenart            | 2017-05-31     |
+| Reuven          | Garigliano        | Patricio        | Bridgland         | 2017-04-28     |
+| Reuven          | Garigliano        | Patricio        | Bridgland         | 2017-04-28     |
+| Reuven          | Garigliano        | Magy            | Stamatiou         | 2017-06-01     |
+| Reuven          | Garigliano        | Magy            | Stamatiou         | 2017-06-01     |
+| Hisao           | Lipner            | Eberhardt       | Terkki            | 2017-04-29     |
+| Hisao           | Lipner            | Eberhardt       | Terkki            | 2017-04-29     |
+| Hisao           | Lipner            | Yishay          | Tzvieli           | 2017-05-27     |
+| Hisao           | Lipner            | Yishay          | Tzvieli           | 2017-05-27     |
+| Hironoby        | Sidou             | Berni           | Genin             | 2017-04-26     |
+| Hironoby        | Sidou             | Berni           | Genin             | 2017-04-26     |
+| Hironoby        | Sidou             | Mingsen         | Casley            | 2017-06-07     |
+| Hironoby        | Sidou             | Mingsen         | Casley            | 2017-06-07     |
+| Shir            | McClurg           | Guoxiang        | Nooteboom         | 2017-05-05     |
+| Shir            | McClurg           | Guoxiang        | Nooteboom         | 2017-05-05     |
+| Shir            | McClurg           | Moss            | Shanbhogue        | 2017-06-04     |
+| Shir            | McClurg           | Moss            | Shanbhogue        | 2017-06-04     |
+| Mokhtar         | Bernatsky         | Kazuhito        | Cappelletti       | 2017-05-02     |
+| Mokhtar         | Bernatsky         | Kazuhito        | Cappelletti       | 2017-05-02     |
+| Mokhtar         | Bernatsky         | Lucien          | Rosenbaum         | 2017-06-07     |
+| Mokhtar         | Bernatsky         | Lucien          | Rosenbaum         | 2017-06-07     |
+| Gao             | Dolinsky          | Cristinel       | Bouloucos         | 2017-05-01     |
+| Gao             | Dolinsky          | Cristinel       | Bouloucos         | 2017-05-01     |
+| Gao             | Dolinsky          | Zvonko          | Nyanchama         | 2017-05-31     |
+| Gao             | Dolinsky          | Zvonko          | Nyanchama         | 2017-05-31     |
+| Erez            | Ritzmann          | Kazuhide        | Peha              | 2017-05-12     |
+| Erez            | Ritzmann          | Kazuhide        | Peha              | 2017-05-12     |
+| Erez            | Ritzmann          | Florian         | Syrotiuk          | 2017-06-07     |
+| Erez            | Ritzmann          | Florian         | Syrotiuk          | 2017-06-07     |
+| Mona            | Azuma             | Lillian         | Haddadi           | 2017-05-03     |
+| Mona            | Azuma             | Lillian         | Haddadi           | 2017-05-03     |
+| Mona            | Azuma             | Basil           | Tramer            | 2017-05-31     |
+| Mona            | Azuma             | Basil           | Tramer            | 2017-05-31     |
+| Danel           | Mondadori         | Mayuko          | Warwick           | 2017-05-09     |
+| Danel           | Mondadori         | Mayuko          | Warwick           | 2017-05-09     |
+| Danel           | Mondadori         | Yinghua         | Dredge            | 2017-06-03     |
+| Danel           | Mondadori         | Yinghua         | Dredge            | 2017-06-03     |
+| Kshitij         | Gils              | Ramzi           | Erde              | 2017-05-08     |
+| Kshitij         | Gils              | Ramzi           | Erde              | 2017-05-08     |
+| Kshitij         | Gils              | Hidefumi        | Caine             | 2017-06-03     |
+| Kshitij         | Gils              | Hidefumi        | Caine             | 2017-06-03     |
+| Premal          | Baek              | Shahaf          | Famili            | 2017-05-14     |
+| Premal          | Baek              | Shahaf          | Famili            | 2017-05-14     |
+| Premal          | Baek              | Heping          | Nitsch            | 2017-06-10     |
+| Premal          | Baek              | Heping          | Nitsch            | 2017-06-10     |
+| Zhongwei        | Rosen             | Bojan           | Montemayor        | 2017-05-12     |
+| Zhongwei        | Rosen             | Bojan           | Montemayor        | 2017-05-12     |
+| Zhongwei        | Rosen             | Sanjiv          | Zschoche          | 2017-06-14     |
+| Zhongwei        | Rosen             | Sanjiv          | Zschoche          | 2017-06-14     |
+| Parviz          | Lortz             | Suzette         | Pettey            | 2017-05-05     |
+| Parviz          | Lortz             | Suzette         | Pettey            | 2017-05-05     |
+| Parviz          | Lortz             | Mayumi          | Schueller         | 2017-06-09     |
+| Parviz          | Lortz             | Mayumi          | Schueller         | 2017-06-09     |
+| Vishv           | Zockler           | Prasadram       | Heyers            | 2017-05-19     |
+| Vishv           | Zockler           | Prasadram       | Heyers            | 2017-05-19     |
+| Vishv           | Zockler           | Georgy          | Dredge            | 2017-06-14     |
+| Vishv           | Zockler           | Georgy          | Dredge            | 2017-06-14     |
+| Tuval           | Kalloufi          | Yongqiao        | Berztiss          | 2017-05-14     |
+| Tuval           | Kalloufi          | Yongqiao        | Berztiss          | 2017-05-14     |
+| Tuval           | Kalloufi          | Brendon         | Bernini           | 2017-06-17     |
+| Tuval           | Kalloufi          | Brendon         | Bernini           | 2017-06-17     |
+| Kenroku         | Malabarba         | Divier          | Reistad           | 2017-05-12     |
+| Kenroku         | Malabarba         | Divier          | Reistad           | 2017-05-12     |
+| Kenroku         | Malabarba         | Ebbe            | Callaway          | 2017-06-16     |
+| Kenroku         | Malabarba         | Ebbe            | Callaway          | 2017-06-16     |
+| Somnath         | Foote             | Domenick        | Tempesti          | 2017-05-15     |
+| Somnath         | Foote             | Domenick        | Tempesti          | 2017-05-15     |
+| Somnath         | Foote             | Berhard         | McFarlin          | 2017-06-15     |
+| Somnath         | Foote             | Berhard         | McFarlin          | 2017-06-15     |
+| Xinglin         | Eugenio           | Otmar           | Herbst            | 2017-05-13     |
+| Xinglin         | Eugenio           | Otmar           | Herbst            | 2017-05-13     |
+| Jungsoon        | Syrzycki          | Elvis           | Demeyer           | 2017-05-18     |
+| Jungsoon        | Syrzycki          | Elvis           | Demeyer           | 2017-05-18     |
+| Prueba          | Prueba            | NULL            | NULL              | NULL           |
++-----------------+-------------------+-----------------+-------------------+----------------+
+117 rows in set (0.0036 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat, cp.fecha_emision,
+                                         ->        cpd.detalle, cpd.cantidad, cpd.costo_total,
+                                         ->        (cpd.cantidad * cpd.costo_total) AS Adeudo
+                                         -> FROM pacientes p
+                                         -> JOIN cuentas_pacientes cp ON p.paciente_id = cp.paciente_id
+                                         -> JOIN cuentas_pacientes_detalles cpd ON cp.cuentas_pacientes_id = cpd.cuentas_pacientes_id;
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+| nombre     | apellido_pat | fecha_emision | detalle     | cantidad | costo_total | Adeudo       |
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+| Georgi     | Facello      | 2017-04-20    | Tratamiento |     3.00 |   151347.00 |  454041.0000 |
+| Georgi     | Facello      | 2017-04-20    | Tratamiento |     3.00 |   286210.00 |  858630.0000 |
+| Bezalel    | Simmel       | 2017-04-17    | Tratamiento |     3.00 |    50299.00 |  150897.0000 |
+| Bezalel    | Simmel       | 2017-04-17    | Tratamiento |     2.00 |   370053.00 |  740106.0000 |
+| Parto      | Bamford      | 2017-04-20    | Tratamiento |     2.00 |   335363.00 |  670726.0000 |
+| Parto      | Bamford      | 2017-04-20    | Tratamiento |     2.00 |   468092.00 |  936184.0000 |
+| Chirstian  | Koblick      | 2017-04-22    | Tratamiento |     3.00 |   336904.00 | 1010712.0000 |
+| Chirstian  | Koblick      | 2017-04-22    | Tratamiento |     3.00 |   526929.00 | 1580787.0000 |
+| Kyoichi    | Maliniak     | 2017-04-21    | Tratamiento |     1.00 |   284730.00 |  284730.0000 |
+| Kyoichi    | Maliniak     | 2017-04-21    | Tratamiento |     1.00 |   550774.00 |  550774.0000 |
+| Anneke     | Preusig      | 2017-04-18    | Tratamiento |     1.00 |   692302.00 |  692302.0000 |
+| Anneke     | Preusig      | 2017-04-18    | Tratamiento |     3.00 |   152954.00 |  458862.0000 |
+| Tzvetan    | Zielinski    | 2017-04-24    | Tratamiento |     1.00 |   191741.00 |  191741.0000 |
+| Tzvetan    | Zielinski    | 2017-04-24    | Tratamiento |     2.00 |   361733.00 |  723466.0000 |
+| Saniya     | Kalloufi     | 2017-04-27    | Tratamiento |     1.00 |   744675.00 |  744675.0000 |
+| Saniya     | Kalloufi     | 2017-04-27    | Tratamiento |     2.00 |   554900.00 | 1109800.0000 |
+| Sumant     | Peac         | 2017-04-28    | Tratamiento |     1.00 |   859558.00 |  859558.0000 |
+| Sumant     | Peac         | 2017-04-28    | Tratamiento |     1.00 |   285060.00 |  285060.0000 |
+| Duangkaew  | Piveteau     | 2017-04-27    | Tratamiento |     1.00 |   507315.00 |  507315.0000 |
+| Duangkaew  | Piveteau     | 2017-04-27    | Tratamiento |     1.00 |   525974.00 |  525974.0000 |
+| Mary       | Sluis        | 2017-04-28    | Tratamiento |     2.00 |   189576.00 |  379152.0000 |
+| Mary       | Sluis        | 2017-04-28    | Tratamiento |     3.00 |   585548.00 | 1756644.0000 |
+| Patricio   | Bridgland    | 2017-04-28    | Tratamiento |     3.00 |   615740.00 | 1847220.0000 |
+| Patricio   | Bridgland    | 2017-04-28    | Tratamiento |     2.00 |    50663.00 |  101326.0000 |
+| Eberhardt  | Terkki       | 2017-04-29    | Tratamiento |     2.00 |   251751.00 |  503502.0000 |
+| Eberhardt  | Terkki       | 2017-04-29    | Tratamiento |     2.00 |   275709.00 |  551418.0000 |
+| Berni      | Genin        | 2017-04-26    | Tratamiento |     3.00 |   289314.00 |  867942.0000 |
+| Berni      | Genin        | 2017-04-26    | Tratamiento |     3.00 |   239682.00 |  719046.0000 |
+| Guoxiang   | Nooteboom    | 2017-05-05    | Tratamiento |     2.00 |   346244.00 |  692488.0000 |
+| Guoxiang   | Nooteboom    | 2017-05-05    | Tratamiento |     1.00 |   563209.00 |  563209.0000 |
+| Kazuhito   | Cappelletti  | 2017-05-02    | Tratamiento |     1.00 |   321521.00 |  321521.0000 |
+| Kazuhito   | Cappelletti  | 2017-05-02    | Tratamiento |     2.00 |   234213.00 |  468426.0000 |
+| Cristinel  | Bouloucos    | 2017-05-01    | Tratamiento |     3.00 |   729192.00 | 2187576.0000 |
+| Cristinel  | Bouloucos    | 2017-05-01    | Tratamiento |     1.00 |   589304.00 |  589304.0000 |
+| Kazuhide   | Peha         | 2017-05-12    | Tratamiento |     2.00 |   654777.00 | 1309554.0000 |
+| Kazuhide   | Peha         | 2017-05-12    | Tratamiento |     3.00 |   248645.00 |  745935.0000 |
+| Lillian    | Haddadi      | 2017-05-03    | Tratamiento |     2.00 |   141906.00 |  283812.0000 |
+| Lillian    | Haddadi      | 2017-05-03    | Tratamiento |     1.00 |   443071.00 |  443071.0000 |
+| Mayuko     | Warwick      | 2017-05-09    | Tratamiento |     1.00 |   749107.00 |  749107.0000 |
+| Mayuko     | Warwick      | 2017-05-09    | Tratamiento |     3.00 |   219624.00 |  658872.0000 |
+| Ramzi      | Erde         | 2017-05-08    | Tratamiento |     1.00 |   347804.00 |  347804.0000 |
+| Ramzi      | Erde         | 2017-05-08    | Tratamiento |     1.00 |   584960.00 |  584960.0000 |
+| Shahaf     | Famili       | 2017-05-14    | Tratamiento |     2.00 |   824953.00 | 1649906.0000 |
+| Shahaf     | Famili       | 2017-05-14    | Tratamiento |     3.00 |   429701.00 | 1289103.0000 |
+| Bojan      | Montemayor   | 2017-05-12    | Tratamiento |     3.00 |   966042.00 | 2898126.0000 |
+| Bojan      | Montemayor   | 2017-05-12    | Tratamiento |     3.00 |   570861.00 | 1712583.0000 |
+| Suzette    | Pettey       | 2017-05-05    | Tratamiento |     1.00 |   376164.00 |  376164.0000 |
+| Suzette    | Pettey       | 2017-05-05    | Tratamiento |     2.00 |    46589.00 |   93178.0000 |
+| Prasadram  | Heyers       | 2017-05-19    | Tratamiento |     3.00 |   376236.00 | 1128708.0000 |
+| Prasadram  | Heyers       | 2017-05-19    | Tratamiento |     1.00 |   566074.00 |  566074.0000 |
+| Yongqiao   | Berztiss     | 2017-05-14    | Tratamiento |     1.00 |   255123.00 |  255123.0000 |
+| Yongqiao   | Berztiss     | 2017-05-14    | Tratamiento |     2.00 |   549895.00 | 1099790.0000 |
+| Divier     | Reistad      | 2017-05-12    | Tratamiento |     3.00 |   317412.00 |  952236.0000 |
+| Divier     | Reistad      | 2017-05-12    | Tratamiento |     3.00 |    88233.00 |  264699.0000 |
+| Domenick   | Tempesti     | 2017-05-15    | Tratamiento |     3.00 |   766565.00 | 2299695.0000 |
+| Domenick   | Tempesti     | 2017-05-15    | Tratamiento |     3.00 |   184519.00 |  553557.0000 |
+| Otmar      | Herbst       | 2017-05-13    | Tratamiento |     3.00 |   230187.00 |  690561.0000 |
+| Otmar      | Herbst       | 2017-05-13    | Tratamiento |     3.00 |    34939.00 |  104817.0000 |
+| Elvis      | Demeyer      | 2017-05-18    | Tratamiento |     2.00 |   973681.00 | 1947362.0000 |
+| Elvis      | Demeyer      | 2017-05-18    | Tratamiento |     1.00 |   140167.00 |  140167.0000 |
+| Karsten    | Joslin       | 2017-05-20    | Tratamiento |     3.00 |   556224.00 | 1668672.0000 |
+| Karsten    | Joslin       | 2017-05-20    | Tratamiento |     1.00 |   268348.00 |  268348.0000 |
+| Jeong      | Reistad      | 2017-05-26    | Tratamiento |     1.00 |   789826.00 |  789826.0000 |
+| Jeong      | Reistad      | 2017-05-26    | Tratamiento |     3.00 |    54824.00 |  164472.0000 |
+| Arif       | Merlo        | 2017-05-22    | Tratamiento |     3.00 |   797003.00 | 2391009.0000 |
+| Arif       | Merlo        | 2017-05-22    | Tratamiento |     1.00 |   343220.00 |  343220.0000 |
+| Bader      | Swan         | 2017-05-21    | Tratamiento |     3.00 |   896987.00 | 2690961.0000 |
+| Bader      | Swan         | 2017-05-21    | Tratamiento |     1.00 |   141859.00 |  141859.0000 |
+| Alain      | Chappelet    | 2017-05-16    | Tratamiento |     1.00 |   645401.00 |  645401.0000 |
+| Alain      | Chappelet    | 2017-05-16    | Tratamiento |     1.00 |   187645.00 |  187645.0000 |
+| Adamantios | Portugali    | 2017-05-20    | Tratamiento |     3.00 |   732868.00 | 2198604.0000 |
+| Adamantios | Portugali    | 2017-05-20    | Tratamiento |     3.00 |   176937.00 |  530811.0000 |
+| Pradeep    | Makrucki     | 2017-05-27    | Tratamiento |     1.00 |   707681.00 |  707681.0000 |
+| Pradeep    | Makrucki     | 2017-05-27    | Tratamiento |     2.00 |   292454.00 |  584908.0000 |
+| Huan       | Lortz        | 2017-05-21    | Tratamiento |     3.00 |   110331.00 |  330993.0000 |
+| Huan       | Lortz        | 2017-05-21    | Tratamiento |     1.00 |   320878.00 |  320878.0000 |
+| Alejandro  | Brender      | 2017-05-26    | Tratamiento |     3.00 |   158256.00 |  474768.0000 |
+| Alejandro  | Brender      | 2017-05-26    | Tratamiento |     3.00 |   354925.00 | 1064775.0000 |
+| Weiyi      | Meriste      | 2017-05-31    | Tratamiento |     2.00 |    81944.00 |  163888.0000 |
+| Weiyi      | Meriste      | 2017-05-31    | Tratamiento |     3.00 |   511089.00 | 1533267.0000 |
+| Uri        | Lenart       | 2017-05-31    | Tratamiento |     2.00 |   881690.00 | 1763380.0000 |
+| Uri        | Lenart       | 2017-05-31    | Tratamiento |     2.00 |    59643.00 |  119286.0000 |
+| Magy       | Stamatiou    | 2017-06-01    | Tratamiento |     2.00 |   602980.00 | 1205960.0000 |
+| Magy       | Stamatiou    | 2017-06-01    | Tratamiento |     2.00 |   583011.00 | 1166022.0000 |
+| Yishay     | Tzvieli      | 2017-05-27    | Tratamiento |     1.00 |   268138.00 |  268138.0000 |
+| Yishay     | Tzvieli      | 2017-05-27    | Tratamiento |     3.00 |   124520.00 |  373560.0000 |
+| Mingsen    | Casley       | 2017-06-07    | Tratamiento |     3.00 |   379874.00 | 1139622.0000 |
+| Mingsen    | Casley       | 2017-06-07    | Tratamiento |     2.00 |    61608.00 |  123216.0000 |
+| Moss       | Shanbhogue   | 2017-06-04    | Tratamiento |     1.00 |   153311.00 |  153311.0000 |
+| Moss       | Shanbhogue   | 2017-06-04    | Tratamiento |     2.00 |   452630.00 |  905260.0000 |
+| Lucien     | Rosenbaum    | 2017-06-07    | Tratamiento |     3.00 |   863400.00 | 2590200.0000 |
+| Lucien     | Rosenbaum    | 2017-06-07    | Tratamiento |     1.00 |   541120.00 |  541120.0000 |
+| Zvonko     | Nyanchama    | 2017-05-31    | Tratamiento |     2.00 |   860995.00 | 1721990.0000 |
+| Zvonko     | Nyanchama    | 2017-05-31    | Tratamiento |     3.00 |    68985.00 |  206955.0000 |
+| Florian    | Syrotiuk     | 2017-06-07    | Tratamiento |     3.00 |   149290.00 |  447870.0000 |
+| Florian    | Syrotiuk     | 2017-06-07    | Tratamiento |     1.00 |    79515.00 |   79515.0000 |
+| Basil      | Tramer       | 2017-05-31    | Tratamiento |     1.00 |   267026.00 |  267026.0000 |
+| Basil      | Tramer       | 2017-05-31    | Tratamiento |     1.00 |   596734.00 |  596734.0000 |
+| Yinghua    | Dredge       | 2017-06-03    | Tratamiento |     1.00 |   834540.00 |  834540.0000 |
+| Yinghua    | Dredge       | 2017-06-03    | Tratamiento |     1.00 |   335679.00 |  335679.0000 |
+| Hidefumi   | Caine        | 2017-06-03    | Tratamiento |     3.00 |   153439.00 |  460317.0000 |
+| Hidefumi   | Caine        | 2017-06-03    | Tratamiento |     1.00 |    71023.00 |   71023.0000 |
+| Heping     | Nitsch       | 2017-06-10    | Tratamiento |     3.00 |   236628.00 |  709884.0000 |
+| Heping     | Nitsch       | 2017-06-10    | Tratamiento |     1.00 |   443391.00 |  443391.0000 |
+| Sanjiv     | Zschoche     | 2017-06-14    | Tratamiento |     3.00 |   871864.00 | 2615592.0000 |
+| Sanjiv     | Zschoche     | 2017-06-14    | Tratamiento |     2.00 |   479401.00 |  958802.0000 |
+| Mayumi     | Schueller    | 2017-06-09    | Tratamiento |     3.00 |   680413.00 | 2041239.0000 |
+| Mayumi     | Schueller    | 2017-06-09    | Tratamiento |     1.00 |   132635.00 |  132635.0000 |
+| Georgy     | Dredge       | 2017-06-14    | Tratamiento |     3.00 |   343354.00 | 1030062.0000 |
+| Georgy     | Dredge       | 2017-06-14    | Tratamiento |     3.00 |   352489.00 | 1057467.0000 |
+| Brendon    | Bernini      | 2017-06-17    | Tratamiento |     3.00 |    57805.00 |  173415.0000 |
+| Brendon    | Bernini      | 2017-06-17    | Tratamiento |     1.00 |   373220.00 |  373220.0000 |
+| Ebbe       | Callaway     | 2017-06-16    | Tratamiento |     3.00 |   308184.00 |  924552.0000 |
+| Ebbe       | Callaway     | 2017-06-16    | Tratamiento |     3.00 |   597900.00 | 1793700.0000 |
+| Berhard    | McFarlin     | 2017-06-15    | Tratamiento |     2.00 |   453174.00 |  906348.0000 |
+| Berhard    | McFarlin     | 2017-06-15    | Tratamiento |     3.00 |   378332.00 | 1134996.0000 |
++------------+--------------+---------------+-------------+----------+-------------+--------------+
+116 rows in set (0.0095 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat,
+                                         ->        SUM(cpd.cantidad * cpd.costo_total) AS Total_adeudo
+                                         -> FROM pacientes p
+                                         -> JOIN cuentas_pacientes cp ON p.paciente_id = cp.paciente_id
+                                         -> JOIN cuentas_pacientes_detalles cpd ON cp.cuentas_pacientes_id = cpd.cuentas_pacientes_id
+                                         -> GROUP BY p.paciente_id;
++------------+--------------+--------------+
+| nombre     | apellido_pat | Total_adeudo |
++------------+--------------+--------------+
+| Georgi     | Facello      | 1312671.0000 |
+| Bezalel    | Simmel       |  891003.0000 |
+| Parto      | Bamford      | 1606910.0000 |
+| Chirstian  | Koblick      | 2591499.0000 |
+| Kyoichi    | Maliniak     |  835504.0000 |
+| Anneke     | Preusig      | 1151164.0000 |
+| Tzvetan    | Zielinski    |  915207.0000 |
+| Saniya     | Kalloufi     | 1854475.0000 |
+| Sumant     | Peac         | 1144618.0000 |
+| Duangkaew  | Piveteau     | 1033289.0000 |
+| Mary       | Sluis        | 2135796.0000 |
+| Patricio   | Bridgland    | 1948546.0000 |
+| Eberhardt  | Terkki       | 1054920.0000 |
+| Berni      | Genin        | 1586988.0000 |
+| Guoxiang   | Nooteboom    | 1255697.0000 |
+| Kazuhito   | Cappelletti  |  789947.0000 |
+| Cristinel  | Bouloucos    | 2776880.0000 |
+| Kazuhide   | Peha         | 2055489.0000 |
+| Lillian    | Haddadi      |  726883.0000 |
+| Mayuko     | Warwick      | 1407979.0000 |
+| Ramzi      | Erde         |  932764.0000 |
+| Shahaf     | Famili       | 2939009.0000 |
+| Bojan      | Montemayor   | 4610709.0000 |
+| Suzette    | Pettey       |  469342.0000 |
+| Prasadram  | Heyers       | 1694782.0000 |
+| Yongqiao   | Berztiss     | 1354913.0000 |
+| Divier     | Reistad      | 1216935.0000 |
+| Domenick   | Tempesti     | 2853252.0000 |
+| Otmar      | Herbst       |  795378.0000 |
+| Elvis      | Demeyer      | 2087529.0000 |
+| Karsten    | Joslin       | 1937020.0000 |
+| Jeong      | Reistad      |  954298.0000 |
+| Arif       | Merlo        | 2734229.0000 |
+| Bader      | Swan         | 2832820.0000 |
+| Alain      | Chappelet    |  833046.0000 |
+| Adamantios | Portugali    | 2729415.0000 |
+| Pradeep    | Makrucki     | 1292589.0000 |
+| Huan       | Lortz        |  651871.0000 |
+| Alejandro  | Brender      | 1539543.0000 |
+| Weiyi      | Meriste      | 1697155.0000 |
+| Uri        | Lenart       | 1882666.0000 |
+| Magy       | Stamatiou    | 2371982.0000 |
+| Yishay     | Tzvieli      |  641698.0000 |
+| Mingsen    | Casley       | 1262838.0000 |
+| Moss       | Shanbhogue   | 1058571.0000 |
+| Lucien     | Rosenbaum    | 3131320.0000 |
+| Zvonko     | Nyanchama    | 1928945.0000 |
+| Florian    | Syrotiuk     |  527385.0000 |
+| Basil      | Tramer       |  863760.0000 |
+| Yinghua    | Dredge       | 1170219.0000 |
+| Hidefumi   | Caine        |  531340.0000 |
+| Heping     | Nitsch       | 1153275.0000 |
+| Sanjiv     | Zschoche     | 3574394.0000 |
+| Mayumi     | Schueller    | 2173874.0000 |
+| Georgy     | Dredge       | 2087529.0000 |
+| Brendon    | Bernini      |  546635.0000 |
+| Ebbe       | Callaway     | 2718252.0000 |
+| Berhard    | McFarlin     | 2041344.0000 |
++------------+--------------+--------------+
+58 rows in set (0.0084 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat,
+                                         ->        SUM(cpd.cantidad * cpd.costo_total) AS Total_adeudo
+                                         -> FROM pacientes p
+                                         -> JOIN cuentas_pacientes cp ON p.paciente_id = cp.paciente_id
+                                         -> JOIN cuentas_pacientes_detalles cpd ON cp.cuentas_pacientes_id = cpd.cuentas_pacientes_id
+                                         -> jOIN formas_pago_pacientes fpp ON fpp.paciente_id = p.paciente_id
+                                         -> WHERE fpp.forma_pago_id IS NULL
+                                         -> GROUP BY p.paciente_id;
++------------+--------------+--------------+
+| nombre     | apellido_pat | Total_adeudo |
++------------+--------------+--------------+
+| Georgi     | Facello      | 1312671.0000 |
+| Bezalel    | Simmel       |  891003.0000 |
+| Eberhardt  | Terkki       | 1054920.0000 |
+| Berni      | Genin        | 1586988.0000 |
+| Guoxiang   | Nooteboom    | 1255697.0000 |
+| Kazuhito   | Cappelletti  |  789947.0000 |
+| Shahaf     | Famili       | 2939009.0000 |
+| Bojan      | Montemayor   | 4610709.0000 |
+| Suzette    | Pettey       |  469342.0000 |
+| Prasadram  | Heyers       | 1694782.0000 |
+| Karsten    | Joslin       | 1937020.0000 |
+| Jeong      | Reistad      |  954298.0000 |
+| Arif       | Merlo        | 2734229.0000 |
+| Bader      | Swan         | 2832820.0000 |
+| Alain      | Chappelet    |  833046.0000 |
+| Adamantios | Portugali    | 2729415.0000 |
+| Magy       | Stamatiou    | 2371982.0000 |
+| Yishay     | Tzvieli      |  641698.0000 |
+| Mingsen    | Casley       | 1262838.0000 |
+| Moss       | Shanbhogue   | 1058571.0000 |
+| Hidefumi   | Caine        |  531340.0000 |
+| Heping     | Nitsch       | 1153275.0000 |
+| Berhard    | McFarlin     | 2041344.0000 |
++------------+--------------+--------------+
+23 rows in set (0.0041 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat,
+                                         ->        SUM(cpd.cantidad * cpd.costo_total) AS Total_adeudo
+                                         -> FROM pacientes p
+                                         -> JOIN cuentas_pacientes cp ON p.paciente_id = cp.paciente_id
+                                         -> JOIN cuentas_pacientes_detalles cpd ON cp.cuentas_pacientes_id = cpd.cuentas_pacientes_id
+                                         -> JOIN formas_pago_pacientes fpp ON cp.forma_pago_pac_id = fpp.forma_pago_pac_id
+                                         -> JOIN formas_pago fp ON fpp.forma_pago_id = fp.forma_pago_id
+                                         -> WHERE fp.forma_pago = 'Efectivo'
+                                         -> GROUP BY p.paciente_id;
++-----------+--------------+--------------+
+| nombre    | apellido_pat | Total_adeudo |
++-----------+--------------+--------------+
+| Parto     | Bamford      | 1606910.0000 |
+| Saniya    | Kalloufi     | 1854475.0000 |
+| Cristinel | Bouloucos    | 2776880.0000 |
+| Yongqiao  | Berztiss     | 1354913.0000 |
+| Pradeep   | Makrucki     | 1292589.0000 |
+| Lucien    | Rosenbaum    | 3131320.0000 |
+| Sanjiv    | Zschoche     | 3574394.0000 |
++-----------+--------------+--------------+
+7 rows in set (0.0069 sec)
+ MySQL  localhost:3306 ssl  hospital  SQL > SELECT p.nombre, p.apellido_pat,
+                                         ->        SUM(cpd.cantidad * cpd.costo_total) AS Total_adeudo
+                                         -> FROM pacientes p
+                                         -> JOIN cuentas_pacientes cp ON p.paciente_id = cp.paciente_id
+                                         -> JOIN cuentas_pacientes_detalles cpd ON cp.cuentas_pacientes_id = cpd.cuentas_pacientes_id
+                                         -> WHERE cp.forma_pago_pac_id IS NOT NULL
+                                         -> GROUP BY p.paciente_id;
++------------+--------------+--------------+
+| nombre     | apellido_pat | Total_adeudo |
++------------+--------------+--------------+
+| Georgi     | Facello      | 1312671.0000 |
+| Bezalel    | Simmel       |  891003.0000 |
+| Parto      | Bamford      | 1606910.0000 |
+| Chirstian  | Koblick      | 2591499.0000 |
+| Kyoichi    | Maliniak     |  835504.0000 |
+| Anneke     | Preusig      | 1151164.0000 |
+| Tzvetan    | Zielinski    |  915207.0000 |
+| Saniya     | Kalloufi     | 1854475.0000 |
+| Sumant     | Peac         | 1144618.0000 |
+| Duangkaew  | Piveteau     | 1033289.0000 |
+| Mary       | Sluis        | 2135796.0000 |
+| Patricio   | Bridgland    | 1948546.0000 |
+| Eberhardt  | Terkki       | 1054920.0000 |
+| Berni      | Genin        | 1586988.0000 |
+| Guoxiang   | Nooteboom    | 1255697.0000 |
+| Kazuhito   | Cappelletti  |  789947.0000 |
+| Cristinel  | Bouloucos    | 2776880.0000 |
+| Kazuhide   | Peha         | 2055489.0000 |
+| Lillian    | Haddadi      |  726883.0000 |
+| Mayuko     | Warwick      | 1407979.0000 |
+| Ramzi      | Erde         |  932764.0000 |
+| Shahaf     | Famili       | 2939009.0000 |
+| Bojan      | Montemayor   | 4610709.0000 |
+| Suzette    | Pettey       |  469342.0000 |
+| Prasadram  | Heyers       | 1694782.0000 |
+| Yongqiao   | Berztiss     | 1354913.0000 |
+| Divier     | Reistad      | 1216935.0000 |
+| Domenick   | Tempesti     | 2853252.0000 |
+| Otmar      | Herbst       |  795378.0000 |
+| Elvis      | Demeyer      | 2087529.0000 |
+| Karsten    | Joslin       | 1937020.0000 |
+| Jeong      | Reistad      |  954298.0000 |
+| Arif       | Merlo        | 2734229.0000 |
+| Bader      | Swan         | 2832820.0000 |
+| Alain      | Chappelet    |  833046.0000 |
+| Adamantios | Portugali    | 2729415.0000 |
+| Pradeep    | Makrucki     | 1292589.0000 |
+| Huan       | Lortz        |  651871.0000 |
+| Alejandro  | Brender      | 1539543.0000 |
+| Weiyi      | Meriste      | 1697155.0000 |
+| Uri        | Lenart       | 1882666.0000 |
+| Magy       | Stamatiou    | 2371982.0000 |
+| Yishay     | Tzvieli      |  641698.0000 |
+| Mingsen    | Casley       | 1262838.0000 |
+| Moss       | Shanbhogue   | 1058571.0000 |
+| Lucien     | Rosenbaum    | 3131320.0000 |
+| Zvonko     | Nyanchama    | 1928945.0000 |
+| Florian    | Syrotiuk     |  527385.0000 |
+| Basil      | Tramer       |  863760.0000 |
+| Yinghua    | Dredge       | 1170219.0000 |
+| Hidefumi   | Caine        |  531340.0000 |
+| Heping     | Nitsch       | 1153275.0000 |
+| Sanjiv     | Zschoche     | 3574394.0000 |
+| Mayumi     | Schueller    | 2173874.0000 |
+| Georgy     | Dredge       | 2087529.0000 |
+| Brendon    | Bernini      |  546635.0000 |
+| Ebbe       | Callaway     | 2718252.0000 |
+| Berhard    | McFarlin     | 2041344.0000 |
++------------+--------------+--------------+
+58 rows in set (0.0026 sec)
